@@ -1200,6 +1200,55 @@
         transform: none;
       }
     }
+  
+    /* HARD IMAGE FIX — keeps the About Cornelius thumbnail clean and stops old image rules affecting it */
+    .hero-image-card {
+      width: 100% !important;
+      max-width: 360px !important;
+      height: clamp(300px, 38vw, 455px) !important;
+      justify-self: end !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border-radius: 28px !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(0,231,255,.28) !important;
+      background: #020712 !important;
+      box-shadow: var(--shadow) !important;
+      display: block !important;
+    }
+
+    .hero-image-card img {
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      object-fit: cover !important;
+      object-position: center top !important;
+      border: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    @media (max-width: 980px) {
+      .hero-image-card {
+        justify-self: start !important;
+        max-width: 340px !important;
+        height: 420px !important;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-image-card {
+        justify-self: center !important;
+        max-width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 592 / 736 !important;
+      }
+
+      .hero-image-card img {
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+    }
   </style>
 </head>
 
@@ -1260,7 +1309,7 @@
         </div>
 
         <aside class="hero-side reveal" aria-label="Portrait, pronunciation and mission cards">
-          <figure class="hero-thumbnail">
+          <figure class="hero-image-card">
             <img src="about-cornelius-aurelius-thumbnail-592x736.png" alt="About Cornelius Aurelius thumbnail with Cornelius wearing a black cap beside the Fish and Tree book" />
           </figure>
           <div class="pronounce-card">
