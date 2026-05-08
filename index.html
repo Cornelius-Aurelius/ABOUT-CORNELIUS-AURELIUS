@@ -260,6 +260,9 @@
 
     .hero-thumbnail {
       position: relative;
+      width: min(100%, 360px);
+      max-width: 360px;
+      justify-self: end;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid rgba(0,231,255,.28);
@@ -271,8 +274,8 @@
       width: 100%;
       height: auto;
       display: block;
-      aspect-ratio: 592 / 736;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       filter: contrast(1.03) saturate(1.04);
     }
 
@@ -1108,6 +1111,12 @@
     }
 
     @media (max-width: 680px) {
+      .hero-thumbnail {
+        width: min(100%, 340px);
+        max-width: 340px;
+        justify-self: center;
+      }
+
       .wrap {
         width: min(100% - 22px, var(--max));
       }
