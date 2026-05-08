@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Cornelius Aurelius — inventor, creator, colour-blind thinker, failed football player, obsessive learner and builder of tools designed to help people waste less energy and live more aligned lives." />
+  <meta name="theme-color" content="#020712" />
+  <title>About Cornelius Aurelius | Inventor, Creator, Colour-Blind Thinker</title>
+
+  <style>
+    :root {
+      --bg: #020712;
+      --bg2: #061524;
+      --panel: rgba(255,255,255,0.075);
+      --panel2: rgba(0,217,255,0.08);
+      --neon: #00e7ff;
+      --neon2: #68f6ff;
+      --text: #f4fbff;
+      --muted: #a9bdc9;
+      --soft: #d9f7ff;
+      --line: rgba(0,231,255,0.28);
+      --danger: #ff5d9e;
+      --good: #75ffb8;
+      --gold: #ffe78a;
+      --shadow: 0 25px 80px rgba(0, 231, 255, 0.15);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(0, 231, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(0, 102, 255, 0.18), transparent 34%),
+        radial-gradient(circle at 50% 90%, rgba(255, 255, 255, 0.08), transparent 24%),
+        linear-gradient(135deg, #01040b 0%, #03101d 45%, #020712 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black, transparent 76%);
+      opacity: .55;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img, svg {
+      max-width: 100%;
+      display: block;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      background: var(--neon);
+      color: #001016;
+      padding: 10px 14px;
+      border-radius: 12px;
+      z-index: 99;
+      font-weight: 900;
+    }
+
+    .skip-link:focus {
+      left: 12px;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(2,7,18,.76);
+      border-bottom: 1px solid rgba(0,231,255,.16);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #001016;
+      font-weight: 1000;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, var(--neon), #ffffff);
+      box-shadow: 0 0 28px rgba(0,231,255,.45);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: .92rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .brand span {
+      display: block;
+      font-size: .76rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: .82rem;
+      color: var(--muted);
+      border: 1px solid transparent;
+      padding: 9px 11px;
+      border-radius: 999px;
+      transition: .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      border-color: rgba(0,231,255,.35);
+      background: rgba(0,231,255,.08);
+      outline: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: clamp(54px, 9vw, 112px) 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, .72fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      color: var(--neon2);
+      border: 1px solid rgba(0,231,255,.28);
+      background: rgba(0,231,255,.08);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      box-shadow: 0 0 38px rgba(0,231,255,.09);
+      margin-bottom: 22px;
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--neon);
+      box-shadow: 0 0 16px var(--neon);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .75; }
+      50% { transform: scale(1.45); opacity: 1; }
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8.4vw, 7.5rem);
+      line-height: .88;
+      letter-spacing: -.075em;
+      max-width: 880px;
+      margin-bottom: 24px;
+      text-wrap: balance;
+    }
+
+    .neon-text {
+      color: var(--neon);
+      text-shadow: 0 0 26px rgba(0,231,255,.45);
+    }
+
+    .hero-lede {
+      font-size: clamp(1.07rem, 2.2vw, 1.42rem);
+      color: var(--soft);
+      max-width: 740px;
+      margin-bottom: 26px;
+    }
+
+    .hero-lede strong {
+      color: #fff;
+    }
+
+    .pronounce-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(0,231,255,.055));
+      border: 1px solid rgba(0,231,255,.23);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .pronounce-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 180px;
+      height: 180px;
+      background: rgba(0,231,255,.24);
+      filter: blur(44px);
+      border-radius: 50%;
+    }
+
+    .pronounce-card h2 {
+      position: relative;
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 14px;
+    }
+
+    .pronounce {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 18px 0;
+    }
+
+    .sound {
+      min-height: 72px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 20px;
+      background: rgba(0,0,0,.28);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .sound b {
+      color: #001016;
+      background: var(--neon);
+      border-radius: 999px;
+      padding: 5px 10px;
+      line-height: 1;
+      box-shadow: 0 0 18px rgba(0,231,255,.36);
+    }
+
+    .sound small {
+      display: block;
+      color: var(--muted);
+      margin-top: 7px;
+      font-weight: 700;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 13px 17px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      font-weight: 900;
+      transition: .25s ease;
+      box-shadow: 0 12px 34px rgba(0,0,0,.22);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(0,231,255,.45);
+      background: rgba(0,231,255,.12);
+      outline: none;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--neon), #ffffff);
+      color: #001016;
+      border-color: transparent;
+      box-shadow: 0 20px 60px rgba(0,231,255,.26);
+    }
+
+    .btn.danger {
+      background: rgba(255,93,158,.1);
+      border-color: rgba(255,93,158,.38);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .identity-card {
+      min-height: 250px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,231,255,.2);
+      background:
+        radial-gradient(circle at 25% 20%, rgba(0,231,255,.23), transparent 34%),
+        radial-gradient(circle at 80% 90%, rgba(255,255,255,.1), transparent 38%),
+        rgba(255,255,255,.07);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .identity-card::after {
+      content: "C A";
+      position: absolute;
+      right: -22px;
+      bottom: -48px;
+      font-size: 9rem;
+      line-height: 1;
+      font-weight: 1000;
+      color: rgba(255,255,255,.035);
+      letter-spacing: -.12em;
+    }
+
+    .identity-card p {
+      position: relative;
+      color: var(--soft);
+      font-size: 1.02rem;
+    }
+
+    .identity-list {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      border: 1px solid rgba(0,231,255,.24);
+      background: rgba(0,0,0,.25);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: .83rem;
+      font-weight: 800;
+    }
+
+    .win-card {
+      border-radius: var(--radius);
+      border: 1px solid rgba(117,255,184,.22);
+      background: linear-gradient(145deg, rgba(117,255,184,.12), rgba(0,231,255,.06));
+      padding: 22px;
+    }
+
+    .win-card b {
+      color: var(--good);
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    .win-card p {
+      color: var(--soft);
+      font-size: 1rem;
+    }
+
+    .ticker {
+      overflow: hidden;
+      border-block: 1px solid rgba(0,231,255,.18);
+      background: rgba(0,0,0,.25);
+      margin: 24px 0 0;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 32s linear infinite;
+    }
+
+    .ticker span {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 18px;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 800;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .ticker i {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--neon);
+      box-shadow: 0 0 10px rgba(0,231,255,.75);
+    }
+
+    @keyframes scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    section {
+      padding: clamp(54px, 7vw, 92px) 0;
+      position: relative;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 26px;
+    }
+
+    .kicker {
+      color: var(--neon2);
+      font-weight: 1000;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+      margin-bottom: 16px;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid rgba(0,231,255,.17);
+      background: rgba(255,255,255,.065);
+      border-radius: var(--radius);
+      padding: 23px;
+      box-shadow: 0 18px 54px rgba(0,0,0,.16);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 10%, rgba(0,231,255,.13), transparent 34%);
+      opacity: .8;
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+    }
+
+    .card h3 {
+      font-size: 1.28rem;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .big-number {
+      font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+      line-height: .9;
+      color: var(--neon);
+      font-weight: 1000;
+      letter-spacing: -.08em;
+      margin-bottom: 14px;
+      text-shadow: 0 0 24px rgba(0,231,255,.24);
+    }
+
+    .story-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+    }
+
+    .story-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,231,255,.11);
+      border: 1px solid rgba(0,231,255,.26);
+      font-size: 1.65rem;
+      box-shadow: 0 0 24px rgba(0,231,255,.08);
+    }
+
+    .story h3 {
+      font-size: 1.14rem;
+      margin-bottom: 5px;
+    }
+
+    .story p {
+      color: var(--muted);
+    }
+
+    .black-uniform {
+      background:
+        linear-gradient(135deg, rgba(0,0,0,.74), rgba(0,231,255,.08)),
+        radial-gradient(circle at 80% 20%, rgba(0,231,255,.19), transparent 35%);
+      border-color: rgba(0,231,255,.25);
+    }
+
+    .quote-panel {
+      border-radius: calc(var(--radius) + 12px);
+      border: 1px solid rgba(0,231,255,.24);
+      background:
+        radial-gradient(circle at top left, rgba(0,231,255,.18), transparent 28%),
+        rgba(0,0,0,.32);
+      padding: clamp(24px, 4vw, 46px);
+      box-shadow: var(--shadow);
+    }
+
+    blockquote {
+      font-size: clamp(1.55rem, 3.8vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 1000;
+      text-wrap: balance;
+      margin-bottom: 18px;
+    }
+
+    blockquote .slash {
+      color: var(--neon);
+    }
+
+    .quote-panel p {
+      color: var(--muted);
+      max-width: 840px;
+      font-size: 1.05rem;
+    }
+
+    .manifesto {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sticky-title {
+      position: sticky;
+      top: 96px;
+    }
+
+    .long-copy {
+      display: grid;
+      gap: 16px;
+    }
+
+    .long-copy p {
+      color: var(--soft);
+      font-size: 1.03rem;
+    }
+
+    .long-copy strong {
+      color: #fff;
+    }
+
+    .highlight {
+      color: #001016;
+      background: var(--neon);
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-weight: 1000;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .confession {
+      border-left: 4px solid var(--danger);
+      padding: 16px 18px;
+      border-radius: 0 20px 20px 0;
+      background: rgba(255,93,158,.08);
+      color: var(--soft);
+      margin: 3px 0;
+    }
+
+    .confession b {
+      color: #fff;
+    }
+
+    .formula-box {
+      border-radius: calc(var(--radius) + 10px);
+      border: 1px solid rgba(0,231,255,.26);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(0,231,255,.22), transparent 32%),
+        radial-gradient(circle at 85% 85%, rgba(117,255,184,.12), transparent 34%),
+        rgba(2, 7, 18, .78);
+      padding: clamp(24px, 4.5vw, 48px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .formula {
+      font-size: clamp(1.35rem, 4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -.055em;
+      color: #fff;
+      font-weight: 1000;
+      margin: 16px 0 18px;
+      word-break: break-word;
+    }
+
+    .formula span {
+      color: var(--neon);
+      text-shadow: 0 0 24px rgba(0,231,255,.35);
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pillar {
+      min-height: 130px;
+      padding: 14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .pillar b {
+      display: block;
+      color: var(--neon2);
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .pillar small {
+      color: var(--muted);
+      line-height: 1.42;
+      display: block;
+    }
+
+    .engine-steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .engine-step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 13px;
+      padding: 17px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.11);
+    }
+
+    .engine-step::before {
+      content: counter(step);
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,231,255,.14);
+      border: 1px solid rgba(0,231,255,.24);
+      color: var(--neon);
+      font-weight: 1000;
+    }
+
+    .engine-step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .engine-step p {
+      color: var(--muted);
+    }
+
+    .fish-world {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .animal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .animal {
+      min-height: 145px;
+      border-radius: 26px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.06);
+    }
+
+    .animal .emoji {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .animal b {
+      display: block;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .animal small {
+      color: var(--muted);
+      display: block;
+      line-height: 1.45;
+    }
+
+    .future-map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .future-item {
+      border-radius: 26px;
+      padding: 20px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(0,231,255,.16);
+      min-height: 198px;
+    }
+
+    .future-item h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .future-item ul,
+    .clean-list {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+
+    .future-item li,
+    .clean-list li {
+      color: var(--muted);
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 7px;
+      align-items: start;
+    }
+
+    .future-item li::before,
+    .clean-list li::before {
+      content: "•";
+      color: var(--neon);
+      font-weight: 1000;
+    }
+
+    .projects-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .project-mini {
+      min-height: 170px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(0,231,255,.17);
+      background: rgba(0,0,0,.26);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-mini b {
+      color: #fff;
+      font-size: 1.04rem;
+      line-height: 1.15;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .project-mini span {
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .project-mini small {
+      color: var(--neon2);
+      font-weight: 900;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .cta-band {
+      padding: 0 0 clamp(52px, 7vw, 90px);
+    }
+
+    .cta-panel {
+      border-radius: calc(var(--radius) + 16px);
+      padding: clamp(26px, 5vw, 54px);
+      border: 1px solid rgba(0,231,255,.3);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(0,231,255,.24), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,.11), rgba(0,0,0,.28));
+      box-shadow: var(--shadow);
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta-panel::before,
+    .cta-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(32px);
+      opacity: .45;
+    }
+
+    .cta-panel::before {
+      width: 170px;
+      height: 170px;
+      background: var(--neon);
+      left: -70px;
+      top: -70px;
+    }
+
+    .cta-panel::after {
+      width: 210px;
+      height: 210px;
+      background: rgba(117,255,184,.55);
+      right: -120px;
+      bottom: -100px;
+    }
+
+    .cta-panel > * {
+      position: relative;
+    }
+
+    .cta-panel h2 {
+      margin-inline: auto;
+      max-width: 860px;
+    }
+
+    .cta-panel p {
+      color: var(--soft);
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 1.08rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(0,231,255,.18);
+      padding: 28px 0 38px;
+      color: var(--muted);
+      background: rgba(0,0,0,.24);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid a {
+      color: var(--neon2);
+      font-weight: 900;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0,231,255,.35);
+      background: rgba(2,7,18,.8);
+      backdrop-filter: blur(14px);
+      color: var(--neon);
+      box-shadow: 0 12px 34px rgba(0,0,0,.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      z-index: 60;
+      font-weight: 1000;
+    }
+
+    .back-top.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0, 231, 255, .94);
+      color: #001016;
+      font-weight: 1000;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      z-index: 70;
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .manifesto,
+      .fish-world {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-title {
+        position: relative;
+        top: auto;
+      }
+
+      .grid-3,
+      .future-map {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pillars {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .projects-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        align-items: flex-start;
+        padding: 14px 0;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .topbar {
+        position: relative;
+      }
+
+      .brand {
+        min-width: auto;
+      }
+
+      .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+      }
+
+      .nav-links a {
+        text-align: center;
+        background: rgba(255,255,255,.045);
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      h1 {
+        font-size: clamp(2.75rem, 17vw, 5.2rem);
+      }
+
+      .pronounce {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2,
+      .grid-3,
+      .future-map,
+      .projects-strip,
+      .animal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pillars {
+        grid-template-columns: 1fr;
+      }
+
+      .story {
+        grid-template-columns: 1fr;
+      }
+
+      .story-icon {
+        width: 54px;
+        height: 54px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .ticker span {
+        font-size: .78rem;
+      }
+
+      .back-top {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar" id="top">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Cornelius Aurelius home section">
+        <div class="logo-mark">CA</div>
+        <div>
+          <strong>Cornelius Aurelius</strong>
+          <span>Inventor / Creator / Odd-sock survivor</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Page navigation">
+        <a href="#story">Story</a>
+        <a href="#creator">Creator</a>
+        <a href="#ai">AI</a>
+        <a href="#engine">Engine</a>
+        <a href="#future">Future</a>
+        <a href="#support">Tip</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="pulse-dot"></span> About me, without the boring corporate mask</div>
+          <h1>Hi, I’m <span class="neon-text">Cornelius Aurelius.</span></h1>
+          <p class="hero-lede">
+            You can call me Cornelius Aurelius. If you are wondering how to say the second bit, it is pronounced <strong>or-rel-lee-us</strong>. Yes, it sounds like I should be arriving on a horse with a sword. In reality, I am probably wearing black clothes, a cap, and trying not to walk into a colour-based disaster.
+          </p>
+          <p class="hero-lede">
+            I am colour blind. I had bad eyesight. I hated school. I failed at football. I failed at business. I failed at selling. I failed at spelling entrepreneur so many times that the word itself started looking personally offended. But somewhere inside all that failure, I found the thing I was actually meant to do: <strong>create useful things from painful experiences.</strong>
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#support">Tip Cornelius</a>
+            <a class="btn" href="#engine">See the Equilibrium Engine</a>
+            <a class="btn" href="https://corneliusaurelius.com/" target="_blank" rel="noopener">corneliusaurelius.com</a>
+          </div>
+        </div>
+
+        <aside class="hero-side reveal" aria-label="Pronunciation and mission cards">
+          <div class="pronounce-card">
+            <h2>How to pronounce Aurelius</h2>
+            <p class="mini-note">Break it into three pieces. Say it slowly first. Then pretend you already knew it.</p>
+            <div class="pronounce" aria-label="Aurelius pronunciation breakdown">
+              <div class="sound"><div><b>OR</b><small>like “or”</small></div></div>
+              <div class="sound"><div><b>REL</b><small>like “rell”</small></div></div>
+              <div class="sound"><div><b>LEE-US</b><small>like “lee-us”</small></div></div>
+            </div>
+            <p class="mini-note"><strong>OR-REL-LEE-US.</strong> That is the name. The mission is harder to pronounce: help people stop wasting their lives fighting invisible problems.</p>
+          </div>
+
+          <div class="identity-card">
+            <p>
+              I want people to know me properly — not because I need a pity parade, but because when my work wins, the people it helps win too.
+            </p>
+            <div class="identity-list">
+              <span class="tag">Colour blind</span>
+              <span class="tag">Failed football player</span>
+              <span class="tag">Introverted</span>
+              <span class="tag">Obsessive learner</span>
+              <span class="tag">Inventor</span>
+              <span class="tag">Creator</span>
+            </div>
+          </div>
+
+          <div class="win-card">
+            <b>Why I want to win</b>
+            <p>If my ideas work, someone else gets clarity earlier, feels less alone, avoids wasting energy, finds the missing cue, makes a better decision, or gets through a day they thought they could not get through.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span><i></i> Colour blindness</span>
+          <span><i></i> Bad eyesight</span>
+          <span><i></i> Sensitive eyes</span>
+          <span><i></i> Failed school</span>
+          <span><i></i> Failed football</span>
+          <span><i></i> Failed business</span>
+          <span><i></i> Inventor / Creator</span>
+          <span><i></i> Psychology</span>
+          <span><i></i> Marketing without manipulation</span>
+          <span><i></i> Personalised Equilibrium</span>
+          <span><i></i> Colour blindness</span>
+          <span><i></i> Bad eyesight</span>
+          <span><i></i> Sensitive eyes</span>
+          <span><i></i> Failed school</span>
+          <span><i></i> Failed football</span>
+          <span><i></i> Failed business</span>
+          <span><i></i> Inventor / Creator</span>
+          <span><i></i> Psychology</span>
+          <span><i></i> Marketing without manipulation</span>
+          <span><i></i> Personalised Equilibrium</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">The origin story</div>
+          <h2>I did not “see the world differently” in a motivational poster way. I literally saw it differently.</h2>
+          <p>My life has involved a lot of guessing, squinting, pretending, adapting, and hoping nobody noticed I had just made a decision based on a colour I could not confidently see.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="story-stack reveal">
+            <article class="story">
+              <div class="story-icon">👁️</div>
+              <div>
+                <h3>The classroom blur</h3>
+                <p>I remember sitting in class unable to properly see the teacher’s handwriting on the board. Everyone else seemed to be receiving the information. I was receiving fog, pressure, and the quiet feeling that maybe I was the problem.</p>
+              </div>
+            </article>
+
+            <article class="story">
+              <div class="story-icon">🎨</div>
+              <div>
+                <h3>The fence incident</h3>
+                <p>I once painted my family home fence the wrong colour. Other people call that a mistake. I call it an early field experiment in why colour should not be trusted as the only source of information.</p>
+              </div>
+            </article>
+
+            <article class="story">
+              <div class="story-icon">🧦</div>
+              <div>
+                <h3>The odd socks era</h3>
+                <p>I went to school wearing odd socks because I genuinely thought they were the same colour. My sarcastic brothers, being the loving emotional support team they were, often asked if I got dressed in the dark.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="card black-uniform reveal">
+            <div class="big-number">BLACK</div>
+            <h3>My accidental uniform</h3>
+            <p>Pretty much all my clothes are black. Not because I am trying to be mysterious. It is because black removes a lot of colour decisions. I do not have to stand there wondering if two colours match, clash, betray me, or make me look like I escaped from a broken highlighter packet.</p>
+            <br />
+            <p>Black also helps with my light sensitivity because it does not bounce as much brightness back at me. A cap helps too. It shades my eyes, reduces glare, and makes me look slightly more like I have my life together than I actually do.</p>
+            <br />
+            <p><strong>Adaptation became part of my personality.</strong> I learned to build systems around the way I actually work, not the way everyone else assumes I should work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="quote-panel reveal">
+          <blockquote>
+            I am not trying to turn failure into a sad story. <span class="slash">/</span> I am trying to turn it into useful equipment.
+          </blockquote>
+          <p>
+            That is the whole point of my work. If I struggled with something and found a way to explain it, game it, teach it, design it, or prevent it hurting someone else, then the failure was not wasted. It became material.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="creator">
+      <div class="wrap manifesto">
+        <div class="section-head sticky-title reveal">
+          <div class="kicker">Entrepreneurship vs creation</div>
+          <h2>I spent 10+ years trying to become an entrepreneur. There was one small problem: I hated selling.</h2>
+          <p>Which is inconvenient, because selling is quite a large part of being an entrepreneur. Also, for years I could not spell entrepreneur without making the English language file a complaint.</p>
+        </div>
+
+        <div class="long-copy reveal">
+          <p>
+            For more than ten years, I studied how to sell. Marketing. Psychology. Persuasion. Offers. Funnels. Side hustles. Dropshipping. Print on demand. Website flipping. eBay. Etsy. Amazon. Forex. Crypto. The whole circus.
+          </p>
+          <p>
+            The more I learned, the more I understood how to influence people. And the more I understood influence, the more I hated the version of selling that feels like tricking someone into buying something useless, overpriced, or wrong for them.
+          </p>
+          <div class="confession">
+            <b>Confession:</b> I was not bad at learning business. I was bad at making money from things I did not feel proud to sell.
+          </div>
+          <p>
+            I have always tried to keep a guilt-free conscience. That sounds noble until you realise it can make you overthink everything. What if this goes wrong for them? What if they need that money? What if I help them badly? What if I should change this first? What if, what if, what if.
+          </p>
+          <p>
+            I think guilt made me quietly sabotage my own hard work. Not because I did not want to succeed. Because I did not want to succeed by becoming someone I would not trust.
+          </p>
+          <p>
+            So I stopped trying to force myself to become the version of an entrepreneur I hated. I went back to what I think I always was underneath it all: <span class="highlight">an inventor and creator.</span>
+          </p>
+          <p>
+            I once heard a filmmaker talk about putting a hidden piece of himself into his work. That idea stayed with me. I started creating things that had a piece of me in them: a painful experience, a strange emotion, a struggle I had, a struggle someone close to me had, or a problem I wished someone had explained to me earlier.
+          </p>
+          <p>
+            That changed everything. When I create from that place, I do not feel like I am manipulating someone. I feel like I am handing them something I wish existed when I needed it.
+          </p>
+          <p>
+            My goal is simple: I want to create things so useful that I do not have to “sell” them in the dirty way. People should feel helped first. The value should be obvious. The support should feel deserved.
+          </p>
+          <p>
+            If I could teach selling in three words, it would be this: <strong>provide love, hope, desire.</strong> Not fake desire. Not manufactured insecurity. Real value. Real hope. Real help.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">The missing piece of the jigsaw</div>
+          <h2>All my life I felt like I had the ideas, but not the translation tool.</h2>
+          <p>I have always felt a bit odd, a bit delusional, and a bit outside the normal operating system. Not delusional in the “I am a toaster” way. Delusional in the “I think I can learn anything if I obsess long enough” way.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card reveal">
+            <h3>Unlimited potential is lonely</h3>
+            <p>I have always had an “I can do anything” mentality. That sounds empowering, but it can also be lonely and frustrating. A lot of people do not think about potential that way. Some people live with limits they have accepted so deeply that they try to hand them to you like family jewellery.</p>
+            <br />
+            <p>That would not bother me if they were peaceful and happy. But often, the same people trying to shrink your belief are miserable themselves, living day to day like underpaid actors in a life they did not audition for.</p>
+          </div>
+
+          <div class="card reveal">
+            <h3>Failure became data</h3>
+            <p>I have failed so many times I sometimes think I make Thomas Edison’s failure ratio look casual. I would try something, fail, move on, try another thing, fail again, then somehow still wake up believing the next idea might be the one.</p>
+            <br />
+            <p>For years, those failures just looked like failures. Recently, they started looking like pieces. Random skills. Random experiments. Random scars. Then AI arrived, and suddenly the pieces started clicking together.</p>
+          </div>
+        </div>
+
+        <div class="quote-panel reveal" style="margin-top:16px;">
+          <blockquote>
+            AI did not give me the ideas. It helped me communicate the madness in a form other people could actually use.
+          </blockquote>
+          <p>
+            Books. Games. Inventions. Art. Music. Websites. Frameworks. I use AI as a communication engine — a way to shape, test, translate and build the ideas that were already in me. The insight is mine. The struggle is mine. The mission is mine. The tool helps me get it out of my head and into the world before I talk myself out of sharing it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="engine">
+      <div class="wrap">
+        <div class="formula-box reveal">
+          <div class="kicker">The Equilibrium Engine</div>
+          <h2>A life operating system for people whose life is fighting itself.</h2>
+          <p class="mini-note">
+            I started with a big idea about existence as a self-balancing informational system. It might be completely wrong scientifically. That is fine. I am not asking anyone to worship it as physics. I turned the useful part into a human framework: how do people reduce drift, waste less energy, and reach a life that actually fits them?
+          </p>
+
+          <div class="formula" id="formulaText">
+            (<span>Energy</span> + <span>Information</span> + <span>Awareness</span>) across (<span>Health</span> + <span>Wealth</span> + <span>Love</span> + <span>Flow</span> + <span>Structured Pain</span> + <span>Perspective</span>) → δJ → 0
+          </div>
+
+          <div class="cta-row">
+            <button class="btn primary" type="button" id="copyFormula">Copy the formula</button>
+            <a class="btn" href="#future">Where this is going</a>
+          </div>
+
+          <div class="pillars" aria-label="Six pillars of the Equilibrium Engine">
+            <div class="pillar"><b>Health</b><small>Body, mind, appearance, energy, recovery and physical presentation.</small></div>
+            <div class="pillar"><b>Wealth</b><small>Earn, stack, save, multiply, stability and long-term security.</small></div>
+            <div class="pillar"><b>Love</b><small>Family, friendship, romance, attraction, desirability and relational safety.</small></div>
+            <div class="pillar"><b>Flow</b><small>Deep focus, meaningful work, immersion and enjoyment of time.</small></div>
+            <div class="pillar"><b>Structured Pain</b><small>Discipline, delayed gratification and growth through challenge.</small></div>
+            <div class="pillar"><b>Perspective</b><small>Meaning, reframing, identity, self-image and long-term viewpoint.</small></div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:16px;">
+          <div class="card reveal">
+            <h3>The simple version</h3>
+            <p>Your system is either aligned or misaligned. The engine uses Energy, Information and Awareness to regulate the six pillars of life while reducing Wasted Energy, so your system drift falls toward zero and you move toward Personalised Equilibrium.</p>
+            <br />
+            <p><strong>Personalised Equilibrium</strong> does not mean copying someone else’s perfect routine. It means building a life around who you actually are, what you can sustain, and what stops your life fighting itself.</p>
+          </div>
+
+          <div class="card reveal">
+            <h3>Wasted Energy</h3>
+            <p>Wasted Energy is anything leaking life force out of the system: toxic relationships, wrong career alignment, emotional chaos, unresolved pain, distraction, shallow busyness, bad decision loops, confusion, self-neglect, and internal conflict.</p>
+            <br />
+            <p>The aim is not just to get more energy. The aim is to stop losing it in places that never deserved it.</p>
+          </div>
+        </div>
+
+        <div class="engine-steps reveal">
+          <div class="engine-step">
+            <div>
+              <h3>Observe the six pillars</h3>
+              <p>Look at Health, Wealth, Love, Flow, Structured Pain and Perspective as one connected system, not six unrelated problems.</p>
+            </div>
+          </div>
+          <div class="engine-step">
+            <div>
+              <h3>Detect the drift</h3>
+              <p>Ask where instability is increasing. Which pillar is leaking energy? Which weak link is making the rest of life harder?</p>
+            </div>
+          </div>
+          <div class="engine-step">
+            <div>
+              <h3>Personalise the correction</h3>
+              <p>Do not copy random advice. Calibrate the fix around your biology, skills, boundaries, temperament, stress tolerance and identity.</p>
+            </div>
+          </div>
+          <div class="engine-step">
+            <div>
+              <h3>Reduce wasted energy</h3>
+              <p>Remove friction, redirect effort, close leaks, and stop pouring energy into systems that keep destabilising you.</p>
+            </div>
+          </div>
+          <div class="engine-step">
+            <div>
+              <h3>Repeat the loop</h3>
+              <p>Explain → Observe → Self-Assess → Personalise → Adjust. The engine is not a one-time fix. It is a recalibration loop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap fish-world">
+        <div class="section-head reveal">
+          <div class="kicker">How I try to see people</div>
+          <h2>Everybody is a genius — but not at the same tree.</h2>
+          <p>
+            One of my favourite ideas is the fish and tree quote. Whether or not the quote is perfectly attributed, the message helped me: do not judge a fish by climbing, and do not panic when someone judges you by a skill your life was never built around.
+          </p>
+          <p style="margin-top:14px; color:var(--soft);">
+            I imagine the human race like different species of animals. A cheetah might judge a sloth for moving slowly. A sloth might judge a cheetah for always rushing. Neither is wrong. They are built differently, living differently, and surviving differently. The mistake is judging others by your own way of life, then judging yourself by someone else’s.
+          </p>
+        </div>
+
+        <div class="animal-grid reveal">
+          <div class="animal"><div class="emoji">🐆</div><b>The cheetah</b><small>Fast, intense, impatient, built for bursts. Not wrong. Just different.</small></div>
+          <div class="animal"><div class="emoji">🦥</div><b>The sloth</b><small>Slow, deliberate, low-drama, energy-saving. Not lazy by default. Just different.</small></div>
+          <div class="animal"><div class="emoji">🐟</div><b>The fish</b><small>Brilliant in water, ridiculous up a tree. Environment matters.</small></div>
+          <div class="animal"><div class="emoji">🦉</div><b>The owl</b><small>Quiet, watchful, strange hours, sees patterns others miss.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">What I build</div>
+          <h2>I make things for the people who are usually misunderstood before they are helped.</h2>
+          <p>My work usually starts with a problem that annoyed me, hurt me, confused me, or made me think: “Why has nobody explained this in a way normal people can actually use?”</p>
+        </div>
+
+        <div class="projects-strip reveal">
+          <div class="project-mini">
+            <div>
+              <b>Colour Blindness in Football</b>
+              <span>Books, games and awareness tools to help players, parents, coaches and clubs make the game visible before judging the player.</span>
+            </div>
+            <small>Visibility</small>
+          </div>
+          <div class="project-mini">
+            <div>
+              <b>Colour-Blind Games</b>
+              <span>Simple, fast games that train players to use non-colour cues under pressure instead of relying only on colour.</span>
+            </div>
+            <small>Training</small>
+          </div>
+          <div class="project-mini">
+            <div>
+              <b>Equilibrium Engine</b>
+              <span>A framework for detecting life drift, reducing wasted energy, and personalising the path back to stability.</span>
+            </div>
+            <small>Alignment</small>
+          </div>
+          <div class="project-mini">
+            <div>
+              <b>Stories, Art, Music & Film</b>
+              <span>Creative worlds built from emotional truth, strange ideas, failure, humour, and the need to make pain useful.</span>
+            </div>
+            <small>Creation</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">Where I think the world is going</div>
+          <h2>The tool changes. The desire usually does not.</h2>
+          <p>History repeats. Human behaviour repeats. First there is chaos, then order, then equilibrium, then the new normal. I think the next wave of useful products will come from AI tools built around things people have always wanted.</p>
+        </div>
+
+        <div class="future-map reveal">
+          <div class="future-item">
+            <h3>⚕️ Health</h3>
+            <ul>
+              <li>Physical health</li>
+              <li>Mental health</li>
+              <li>Appearance</li>
+              <li>Physical presentation</li>
+            </ul>
+          </div>
+          <div class="future-item">
+            <h3>💷 Wealth</h3>
+            <ul>
+              <li>Earn</li>
+              <li>Stack / save</li>
+              <li>Multiply</li>
+              <li>Financial stability</li>
+            </ul>
+          </div>
+          <div class="future-item">
+            <h3>❤️ Love</h3>
+            <ul>
+              <li>Family</li>
+              <li>Friendship</li>
+              <li>Romance</li>
+              <li>Attraction and desirability</li>
+            </ul>
+          </div>
+          <div class="future-item">
+            <h3>🌊 Flow</h3>
+            <ul>
+              <li>Deep focus</li>
+              <li>Meaningful engagement</li>
+              <li>Enjoyment of time</li>
+              <li>Immersion</li>
+            </ul>
+          </div>
+          <div class="future-item">
+            <h3>🔥 Structured Pain</h3>
+            <ul>
+              <li>Discipline</li>
+              <li>Delayed gratification</li>
+              <li>Growth through challenge</li>
+              <li>Becoming stronger</li>
+            </ul>
+          </div>
+          <div class="future-item">
+            <h3>🧠 Perspective</h3>
+            <ul>
+              <li>Meaning making</li>
+              <li>Cognitive reframing</li>
+              <li>Long-term viewpoint</li>
+              <li>Identity and self-image</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quote-panel reveal" style="margin-top:16px;">
+          <blockquote>
+            Most people still want to be healthier, wealthier, loved, focused, stronger, and able to make sense of life.
+          </blockquote>
+          <p>
+            I think the future looks good for the people who adapt early, especially creatives who are not afraid to share their creativity. I think society will value authenticity more over the next decade, even when that authenticity is messy, imperfect, uncomfortable, funny, strange, or not polished into a fake personal brand voice.
+          </p>
+          <br />
+          <p>
+            I also think old useful things will become new useful things again. Music, storytelling, communication, love, creativity and entertainment will all find new forms in the AI age. Gifted humans will collaborate with gifted AI users. Singer plus AI singer. Creator plus AI creator. Human originality plus machine acceleration. New competitions. New platforms. New royalties. New ways for strange people with strange ideas to finally get the idea out properly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="support" class="cta-band">
+      <div class="wrap">
+        <div class="cta-panel reveal">
+          <div class="kicker">Support the work</div>
+          <h2>If you want me to win, help me keep building things that help people win.</h2>
+          <p>
+            I am not trying to become rich by selling people useless rubbish. I am trying to build books, games, frameworks, stories and tools that make invisible problems easier to understand. If the work helps you, inspires you, entertains you, or makes you want to see what I build next, you can tip below.
+          </p>
+          <div class="cta-row" style="justify-content:center;">
+            <a class="btn primary" href="https://buy.stripe.com/eVqcMY98h5wo6logZOejK00" target="_blank" rel="noopener">Tip Cornelius</a>
+            <a class="btn" href="https://corneliusaurelius.com/" target="_blank" rel="noopener">Visit corneliusaurelius.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <p>© <span id="year"></span> Cornelius Aurelius. Built from failure, humour, colour confusion and useful obsession.</p>
+      <p><a href="https://corneliusaurelius.com/" target="_blank" rel="noopener">corneliusaurelius.com</a></p>
+    </div>
+  </footer>
+
+  <a class="back-top" href="#top" aria-label="Back to top">↑</a>
+  <div class="copy-toast" id="copyToast" role="status" aria-live="polite">Formula copied</div>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+    const backTop = document.querySelector('.back-top');
+    const copyButton = document.getElementById('copyFormula');
+    const formulaText = document.getElementById('formulaText');
+    const copyToast = document.getElementById('copyToast');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealElements.forEach((el) => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 650) {
+        backTop.classList.add('show');
+      } else {
+        backTop.classList.remove('show');
+      }
+    });
+
+    function showToast(message) {
+      copyToast.textContent = message;
+      copyToast.classList.add('show');
+      window.setTimeout(() => copyToast.classList.remove('show'), 1700);
+    }
+
+    async function copyFormula() {
+      const text = '(Energy + Information + Awareness) across (Health + Wealth + Love + Flow + Structured Pain + Perspective) → δJ → 0';
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Formula copied');
+      } catch (error) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Formula copied');
+      }
+    }
+
+    if (copyButton && formulaText) {
+      copyButton.addEventListener('click', copyFormula);
+    }
+  </script>
+</body>
+</html>
