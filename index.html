@@ -258,6 +258,39 @@
       color: #fff;
     }
 
+    .hero-thumbnail {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(0,231,255,.28);
+      background: rgba(0,0,0,.35);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-thumbnail img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 592 / 736;
+      object-fit: cover;
+      filter: contrast(1.03) saturate(1.04);
+    }
+
+    .hero-thumbnail-caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.58);
+      border: 1px solid rgba(0,231,255,.22);
+      backdrop-filter: blur(10px);
+      color: var(--soft);
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
     .pronounce-card {
       position: relative;
       background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(0,231,255,.055));
@@ -1210,7 +1243,7 @@
             You can call me Cornelius Aurelius. If you are wondering how to say the second bit, it is pronounced <strong>or-rel-lee-us</strong>. Yes, it sounds like I should be arriving on a horse with a sword. In reality, I am probably wearing black clothes, a cap, and trying not to walk into a colour-based disaster.
           </p>
           <p class="hero-lede">
-            I am colour blind. I had bad eyesight. I hated school. I failed at football. I failed at business. I failed at selling. I failed at spelling entrepreneur so many times that the word itself started looking personally offended. But somewhere inside all that failure, I found the thing I was actually meant to do: <strong>create useful things from painful experiences.</strong>
+            I am colour blind. My eyesight has been bad enough to turn classrooms into fog machines. I hated school. Football broke my heart. Business humbled me. Selling made me feel like I needed a shower. And I failed at spelling entrepreneur so many times the word itself probably filed a restraining order. But hidden inside all that failure was the thing I was actually built for: <strong>turning painful, embarrassing, weirdly specific experiences into useful things that might stop someone else wasting years.</strong>
           </p>
           <div class="cta-row">
             <a class="btn primary" href="#support">Tip Cornelius</a>
@@ -1219,7 +1252,11 @@
           </div>
         </div>
 
-        <aside class="hero-side reveal" aria-label="Pronunciation and mission cards">
+        <aside class="hero-side reveal" aria-label="Portrait, pronunciation and mission cards">
+          <figure class="hero-thumbnail">
+            <img src="about-cornelius-aurelius-thumbnail-592x736.png" alt="About Cornelius Aurelius thumbnail with Cornelius wearing a black cap beside the Fish and Tree book" />
+            <figcaption class="hero-thumbnail-caption">The fish, the tree, the black cap, and the colour-blind chaos.</figcaption>
+          </figure>
           <div class="pronounce-card">
             <h2>How to pronounce Aurelius</h2>
             <p class="mini-note">Break it into three pieces. Say it slowly first. Then pretend you already knew it.</p>
@@ -1524,7 +1561,7 @@
       <div class="wrap fish-world">
         <div class="section-head reveal">
           <div class="kicker">How I try to see people</div>
-          <h2>“Everybody is a Genius. But If You Judge a Fish by Its Ability to Climb a Tree, It Will Live Its Whole Life Believing that It is stupid.”</h2>
+          <h2>“Everybody is a Genius. But If You Judge a Fish by Its Ability to Climb a Tree, It Will Live Its Whole Life Believing that It is less capable.”</h2>
           <p>
             That quote changed how I looked at myself and other people. It helped me stop judging people by skills their life was never built around. It also helped me stop feeling insecure when people judged me by standards that did not fit how I actually see, think, learn or create.
           </p>
