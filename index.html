@@ -27,15 +27,8 @@
       --max: 1180px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       min-height: 100vh;
@@ -73,15 +66,9 @@
       z-index: -1;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img, svg {
-      max-width: 100%;
-      display: block;
-    }
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; display: block; }
+    button { font: inherit; }
 
     .skip-link {
       position: absolute;
@@ -91,25 +78,19 @@
       color: #001016;
       padding: 10px 14px;
       border-radius: 12px;
-      z-index: 99;
+      z-index: 999;
       font-weight: 900;
     }
+    .skip-link:focus { left: 12px; }
 
-    .skip-link:focus {
-      left: 12px;
-    }
-
-    .wrap {
-      width: min(var(--max), calc(100% - 28px));
-      margin: 0 auto;
-    }
+    .wrap { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
 
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       backdrop-filter: blur(18px);
-      background: rgba(2,7,18,.76);
+      background: rgba(2,7,18,.88);
       border-bottom: 1px solid rgba(0,231,255,.16);
     }
 
@@ -125,7 +106,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      min-width: 220px;
+      min-width: 0;
     }
 
     .logo-mark {
@@ -139,6 +120,7 @@
       letter-spacing: -2px;
       background: linear-gradient(135deg, var(--neon), #ffffff);
       box-shadow: 0 0 28px rgba(0,231,255,.45);
+      flex: 0 0 auto;
     }
 
     .brand strong {
@@ -157,42 +139,115 @@
     }
 
     .nav-links {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 8px;
-      flex-wrap: wrap;
+      flex: 0 0 auto;
     }
 
-    .nav-links a {
-      font-size: .82rem;
-      color: var(--muted);
-      border: 1px solid transparent;
-      padding: 9px 11px;
+    .menu-toggle {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border: 1px solid rgba(0,231,255,.34);
       border-radius: 999px;
-      transition: .25s ease;
-    }
-
-    .nav-links a.home-icon {
       color: #001016;
       background: linear-gradient(135deg, var(--neon), #ffffff);
-      border-color: transparent;
       font-weight: 1000;
+      cursor: pointer;
       box-shadow: 0 0 24px rgba(0,231,255,.28);
+      transition: transform .22s ease, box-shadow .22s ease;
     }
 
-    .nav-links a:hover,
-    .nav-links a:focus-visible {
-      color: var(--text);
-      border-color: rgba(0,231,255,.35);
-      background: rgba(0,231,255,.08);
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 0 34px rgba(0,231,255,.42);
       outline: none;
     }
 
-    .hero {
-      position: relative;
-      padding: clamp(54px, 9vw, 112px) 0 44px;
+    .menu-lines { width: 18px; display: grid; gap: 4px; }
+    .menu-lines span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 99px;
+      background: currentColor;
+      transition: transform .2s ease, opacity .2s ease;
     }
+    .menu-text { letter-spacing: .04em; }
+    .menu-chevron { font-size: 1rem; line-height: 1; transform: translateY(-1px); transition: transform .2s ease; }
+
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: min(320px, calc(100vw - 28px));
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(0,231,255,.25);
+      border-radius: 22px;
+      background: rgba(2,7,18,.98);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 0 28px rgba(0,231,255,.12);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px) scale(.98);
+      transform-origin: top right;
+      transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    }
+
+    .nav-links.is-open .menu-panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .nav-links.is-open .menu-chevron { transform: rotate(180deg); }
+    .nav-links.is-open .menu-lines span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-links.is-open .menu-lines span:nth-child(2) { opacity: 0; }
+    .nav-links.is-open .menu-lines span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .menu-panel a,
+    .menu-panel a.home-icon {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 13px;
+      border-radius: 15px;
+      border: 1px solid rgba(0,231,255,.13);
+      background: rgba(255,255,255,.045);
+      color: var(--soft);
+      font-size: .9rem;
+      font-weight: 900;
+      text-align: left;
+      transition: .22s ease;
+    }
+
+    .menu-panel a::after { content: "→"; color: var(--neon2); opacity: .78; }
+    .menu-panel a.home-icon { color: #001016; background: linear-gradient(135deg, var(--neon), #ffffff); border-color: transparent; }
+    .menu-panel a.home-icon::after { color: #001016; }
+
+    .menu-panel a:hover,
+    .menu-panel a:focus-visible {
+      color: #001016;
+      background: var(--neon);
+      border-color: var(--neon);
+      outline: none;
+    }
+    .menu-panel a:hover::after,
+    .menu-panel a:focus-visible::after { color: #001016; }
+
+    .hero { position: relative; padding: clamp(54px, 9vw, 112px) 0 44px; }
 
     .hero-grid {
       display: grid;
@@ -242,10 +297,7 @@
       text-wrap: balance;
     }
 
-    .neon-text {
-      color: var(--neon);
-      text-shadow: 0 0 26px rgba(0,231,255,.45);
-    }
+    .neon-text { color: var(--neon); text-shadow: 0 0 26px rgba(0,231,255,.45); }
 
     .hero-lede {
       font-size: clamp(1.07rem, 2.2vw, 1.42rem);
@@ -253,110 +305,9 @@
       max-width: 740px;
       margin-bottom: 26px;
     }
+    .hero-lede strong { color: #fff; }
 
-    .hero-lede strong {
-      color: #fff;
-    }
-
-    .hero-thumbnail {
-      position: relative;
-      width: min(100%, 360px);
-      max-width: 360px;
-      justify-self: end;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(0,231,255,.28);
-      background: rgba(0,0,0,.35);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-thumbnail img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      object-position: center;
-      filter: contrast(1.03) saturate(1.04);
-    }
-
-    .hero-thumbnail-caption {
-      display: none;
-    }
-
-    .pronounce-card {
-      position: relative;
-      background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(0,231,255,.055));
-      border: 1px solid rgba(0,231,255,.23);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .pronounce-card::before {
-      content: "";
-      position: absolute;
-      inset: -80px -80px auto auto;
-      width: 180px;
-      height: 180px;
-      background: rgba(0,231,255,.24);
-      filter: blur(44px);
-      border-radius: 50%;
-    }
-
-    .pronounce-card h2 {
-      position: relative;
-      font-size: clamp(1.35rem, 2.6vw, 2rem);
-      line-height: 1.1;
-      letter-spacing: -.03em;
-      margin-bottom: 14px;
-    }
-
-    .pronounce {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-      margin: 18px 0;
-    }
-
-    .sound {
-      min-height: 72px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 20px;
-      background: rgba(0,0,0,.28);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 10px;
-    }
-
-    .sound b {
-      color: #001016;
-      background: var(--neon);
-      border-radius: 999px;
-      padding: 5px 10px;
-      line-height: 1;
-      box-shadow: 0 0 18px rgba(0,231,255,.36);
-    }
-
-    .sound small {
-      display: block;
-      color: var(--muted);
-      margin-top: 7px;
-      font-weight: 700;
-    }
-
-    .mini-note {
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
-    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
     .btn {
       display: inline-flex;
@@ -375,29 +326,78 @@
     }
 
     .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(0,231,255,.45);
-      background: rgba(0,231,255,.12);
-      outline: none;
+    .btn:focus-visible { transform: translateY(-2px); border-color: rgba(0,231,255,.45); background: rgba(0,231,255,.12); outline: none; }
+    .btn.primary { background: linear-gradient(135deg, var(--neon), #ffffff); color: #001016; border-color: transparent; box-shadow: 0 20px 60px rgba(0,231,255,.26); }
+
+    .hero-side { display: grid; gap: 16px; }
+
+    .hero-image-card {
+      width: 100%;
+      max-width: 360px;
+      height: clamp(300px, 38vw, 455px);
+      justify-self: end;
+      margin: 0;
+      padding: 0;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(0,231,255,.28);
+      background: #020712;
+      box-shadow: var(--shadow);
+      display: block;
     }
 
-    .btn.primary {
-      background: linear-gradient(135deg, var(--neon), #ffffff);
-      color: #001016;
-      border-color: transparent;
-      box-shadow: 0 20px 60px rgba(0,231,255,.26);
+    .hero-image-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      border: 0;
+      margin: 0;
+      padding: 0;
     }
 
-    .btn.danger {
-      background: rgba(255,93,158,.1);
-      border-color: rgba(255,93,158,.38);
+    .pronounce-card,
+    .identity-card,
+    .win-card,
+    .card,
+    .quote-panel,
+    .formula-box,
+    .future-item,
+    .project-mini,
+    .animal,
+    .cta-panel {
+      box-shadow: var(--shadow);
     }
 
-    .hero-side {
-      display: grid;
-      gap: 16px;
+    .pronounce-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(0,231,255,.055));
+      border: 1px solid rgba(0,231,255,.23);
+      border-radius: var(--radius);
+      padding: 22px;
+      overflow: hidden;
     }
+
+    .pronounce-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 180px;
+      height: 180px;
+      background: rgba(0,231,255,.24);
+      filter: blur(44px);
+      border-radius: 50%;
+    }
+
+    .pronounce-card > * { position: relative; }
+    .pronounce-card h2 { font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.1; letter-spacing: -.03em; margin-bottom: 14px; }
+    .mini-note { color: var(--muted); font-size: .95rem; }
+
+    .pronounce { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+    .sound { min-height: 72px; border: 1px solid rgba(255,255,255,.14); border-radius: 20px; background: rgba(0,0,0,.28); display: grid; place-items: center; text-align: center; padding: 10px; }
+    .sound b { color: #001016; background: var(--neon); border-radius: 999px; padding: 5px 10px; line-height: 1; box-shadow: 0 0 18px rgba(0,231,255,.36); }
+    .sound small { display: block; color: var(--muted); margin-top: 7px; font-weight: 700; }
 
     .identity-card {
       min-height: 250px;
@@ -408,7 +408,6 @@
         radial-gradient(circle at 80% 90%, rgba(255,255,255,.1), transparent 38%),
         rgba(255,255,255,.07);
       padding: 22px;
-      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -428,826 +427,171 @@
       letter-spacing: -.12em;
     }
 
-    .identity-card p {
-      position: relative;
-      color: var(--soft);
-      font-size: 1.02rem;
-    }
+    .identity-card p { position: relative; color: var(--soft); font-size: 1.02rem; }
+    .identity-list { position: relative; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag { border: 1px solid rgba(0,231,255,.24); background: rgba(0,0,0,.25); color: var(--soft); border-radius: 999px; padding: 8px 10px; font-size: .83rem; font-weight: 800; }
 
-    .identity-list {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
-    }
+    .win-card { border-radius: var(--radius); border: 1px solid rgba(117,255,184,.22); background: linear-gradient(145deg, rgba(117,255,184,.12), rgba(0,231,255,.06)); padding: 22px; }
+    .win-card b { color: var(--good); display: block; margin-bottom: 8px; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem; }
+    .win-card p { color: var(--soft); font-size: 1rem; }
 
-    .tag {
-      border: 1px solid rgba(0,231,255,.24);
-      background: rgba(0,0,0,.25);
-      color: var(--soft);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: .83rem;
-      font-weight: 800;
-    }
+    .ticker { overflow: hidden; border-block: 1px solid rgba(0,231,255,.18); background: rgba(0,0,0,.25); margin: 24px 0 0; }
+    .ticker-track { display: flex; width: max-content; animation: scroll 32s linear infinite; }
+    .ticker span { display: inline-flex; gap: 10px; align-items: center; padding: 14px 18px; color: var(--muted); white-space: nowrap; font-weight: 800; font-size: .88rem; letter-spacing: .04em; text-transform: uppercase; }
+    .ticker i { width: 6px; height: 6px; border-radius: 99px; background: var(--neon); box-shadow: 0 0 10px rgba(0,231,255,.75); }
+    @keyframes scroll { to { transform: translateX(-50%); } }
 
-    .win-card {
-      border-radius: var(--radius);
-      border: 1px solid rgba(117,255,184,.22);
-      background: linear-gradient(145deg, rgba(117,255,184,.12), rgba(0,231,255,.06));
-      padding: 22px;
-    }
+    section { padding: clamp(54px, 7vw, 92px) 0; position: relative; scroll-margin-top: 92px; }
+    .section-head { max-width: 760px; margin-bottom: 26px; }
+    .kicker { color: var(--neon2); font-weight: 1000; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; margin-bottom: 10px; }
+    h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: .96; letter-spacing: -.055em; margin-bottom: 16px; text-wrap: balance; }
+    .section-head p { color: var(--muted); font-size: 1.05rem; }
 
-    .win-card b {
-      color: var(--good);
-      display: block;
-      margin-bottom: 8px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-size: .78rem;
-    }
-
-    .win-card p {
-      color: var(--soft);
-      font-size: 1rem;
-    }
-
-    .ticker {
-      overflow: hidden;
-      border-block: 1px solid rgba(0,231,255,.18);
-      background: rgba(0,0,0,.25);
-      margin: 24px 0 0;
-    }
-
-    .ticker-track {
-      display: flex;
-      width: max-content;
-      animation: scroll 32s linear infinite;
-    }
-
-    .ticker span {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      padding: 14px 18px;
-      color: var(--muted);
-      white-space: nowrap;
-      font-weight: 800;
-      font-size: .88rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-
-    .ticker i {
-      width: 6px;
-      height: 6px;
-      border-radius: 99px;
-      background: var(--neon);
-      box-shadow: 0 0 10px rgba(0,231,255,.75);
-    }
-
-    @keyframes scroll {
-      to { transform: translateX(-50%); }
-    }
-
-    section {
-      padding: clamp(54px, 7vw, 92px) 0;
-      position: relative;
-    }
-
-    .section-head {
-      max-width: 760px;
-      margin-bottom: 26px;
-    }
-
-    .kicker {
-      color: var(--neon2);
-      font-weight: 1000;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-size: .78rem;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: .96;
-      letter-spacing: -.055em;
-      margin-bottom: 16px;
-      text-wrap: balance;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
     .card {
       border: 1px solid rgba(0,231,255,.17);
       background: rgba(255,255,255,.065);
       border-radius: var(--radius);
       padding: 23px;
-      box-shadow: 0 18px 54px rgba(0,0,0,.16);
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 10%, rgba(0,231,255,.13), transparent 34%);
-      opacity: .8;
-      pointer-events: none;
-    }
+    .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 10%, rgba(0,231,255,.13), transparent 34%); opacity: .8; pointer-events: none; }
+    .card > * { position: relative; }
+    .card h3 { font-size: 1.28rem; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 10px; }
+    .card p { color: var(--muted); }
+    .card a { color: var(--neon2); font-weight: 1000; text-decoration: underline; text-underline-offset: 4px; }
 
-    .card > * {
-      position: relative;
-    }
+    .big-number { font-size: clamp(2.2rem, 4.5vw, 4.4rem); line-height: .9; color: var(--neon); font-weight: 1000; letter-spacing: -.08em; margin-bottom: 14px; text-shadow: 0 0 24px rgba(0,231,255,.24); }
 
-    .card h3 {
-      font-size: 1.28rem;
-      line-height: 1.1;
-      letter-spacing: -.025em;
-      margin-bottom: 10px;
-    }
+    .story-stack { display: grid; gap: 14px; }
+    .story { display: grid; grid-template-columns: 68px 1fr; gap: 16px; align-items: start; padding: 18px; border-radius: 24px; border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.25); }
+    .story-icon { width: 58px; height: 58px; border-radius: 20px; display: grid; place-items: center; background: rgba(0,231,255,.11); border: 1px solid rgba(0,231,255,.26); font-size: 1.65rem; box-shadow: 0 0 24px rgba(0,231,255,.08); }
+    .story h3 { font-size: 1.14rem; margin-bottom: 5px; }
+    .story p { color: var(--muted); }
 
-    .card p {
-      color: var(--muted);
-    }
-
-    .big-number {
-      font-size: clamp(2.2rem, 4.5vw, 4.4rem);
-      line-height: .9;
-      color: var(--neon);
-      font-weight: 1000;
-      letter-spacing: -.08em;
-      margin-bottom: 14px;
-      text-shadow: 0 0 24px rgba(0,231,255,.24);
-    }
-
-    .story-stack {
-      display: grid;
-      gap: 14px;
-    }
-
-    .story {
-      display: grid;
-      grid-template-columns: 68px 1fr;
-      gap: 16px;
-      align-items: start;
-      padding: 18px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-    }
-
-    .story-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 20px;
-      display: grid;
-      place-items: center;
-      background: rgba(0,231,255,.11);
-      border: 1px solid rgba(0,231,255,.26);
-      font-size: 1.65rem;
-      box-shadow: 0 0 24px rgba(0,231,255,.08);
-    }
-
-    .story h3 {
-      font-size: 1.14rem;
-      margin-bottom: 5px;
-    }
-
-    .story p {
-      color: var(--muted);
-    }
-
-    .black-uniform {
-      background:
-        linear-gradient(135deg, rgba(0,0,0,.74), rgba(0,231,255,.08)),
-        radial-gradient(circle at 80% 20%, rgba(0,231,255,.19), transparent 35%);
-      border-color: rgba(0,231,255,.25);
-    }
+    .black-uniform { background: linear-gradient(135deg, rgba(0,0,0,.74), rgba(0,231,255,.08)), radial-gradient(circle at 80% 20%, rgba(0,231,255,.19), transparent 35%); border-color: rgba(0,231,255,.25); }
 
     .quote-panel {
       border-radius: calc(var(--radius) + 12px);
       border: 1px solid rgba(0,231,255,.24);
-      background:
-        radial-gradient(circle at top left, rgba(0,231,255,.18), transparent 28%),
-        rgba(0,0,0,.32);
+      background: radial-gradient(circle at top left, rgba(0,231,255,.18), transparent 28%), rgba(0,0,0,.32);
       padding: clamp(24px, 4vw, 46px);
-      box-shadow: var(--shadow);
     }
 
-    blockquote {
-      font-size: clamp(1.55rem, 3.8vw, 3.2rem);
-      line-height: 1.08;
-      letter-spacing: -.045em;
-      font-weight: 1000;
-      text-wrap: balance;
-      margin-bottom: 18px;
-    }
+    blockquote { font-size: clamp(1.55rem, 3.8vw, 3.2rem); line-height: 1.08; letter-spacing: -.045em; font-weight: 1000; text-wrap: balance; margin-bottom: 18px; }
+    blockquote .slash { color: var(--neon); }
+    .quote-panel p { color: var(--muted); max-width: 840px; font-size: 1.05rem; }
 
-    blockquote .slash {
-      color: var(--neon);
-    }
-
-    .quote-panel p {
-      color: var(--muted);
-      max-width: 840px;
-      font-size: 1.05rem;
-    }
-
-    .manifesto {
-      display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .sticky-title {
-      position: sticky;
-      top: 96px;
-    }
-
-    .long-copy {
-      display: grid;
-      gap: 16px;
-    }
-
-    .long-copy p {
-      color: var(--soft);
-      font-size: 1.03rem;
-    }
-
-    .long-copy strong {
-      color: #fff;
-    }
-
-    .highlight {
-      color: #001016;
-      background: var(--neon);
-      border-radius: 10px;
-      padding: 1px 7px;
-      font-weight: 1000;
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-    }
-
-    .confession {
-      border-left: 4px solid var(--danger);
-      padding: 16px 18px;
-      border-radius: 0 20px 20px 0;
-      background: rgba(255,93,158,.08);
-      color: var(--soft);
-      margin: 3px 0;
-    }
-
-    .confession b {
-      color: #fff;
-    }
+    .manifesto { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; align-items: start; }
+    .sticky-title { position: sticky; top: 96px; }
+    .long-copy { display: grid; gap: 16px; }
+    .long-copy p { color: var(--soft); font-size: 1.03rem; }
+    .long-copy strong { color: #fff; }
+    .highlight { color: #001016; background: var(--neon); border-radius: 10px; padding: 1px 7px; font-weight: 1000; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .confession { border-left: 4px solid var(--danger); padding: 16px 18px; border-radius: 0 20px 20px 0; background: rgba(255,93,158,.08); color: var(--soft); margin: 3px 0; }
+    .confession b { color: #fff; }
 
     .formula-box {
       border-radius: calc(var(--radius) + 10px);
       border: 1px solid rgba(0,231,255,.26);
-      background:
-        radial-gradient(circle at 15% 15%, rgba(0,231,255,.22), transparent 32%),
-        radial-gradient(circle at 85% 85%, rgba(117,255,184,.12), transparent 34%),
-        rgba(2, 7, 18, .78);
+      background: radial-gradient(circle at 15% 15%, rgba(0,231,255,.22), transparent 32%), radial-gradient(circle at 85% 85%, rgba(117,255,184,.12), transparent 34%), rgba(2, 7, 18, .78);
       padding: clamp(24px, 4.5vw, 48px);
-      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .formula {
-      font-size: clamp(1.35rem, 4vw, 3.4rem);
-      line-height: 1.08;
-      letter-spacing: -.055em;
-      color: #fff;
-      font-weight: 1000;
-      margin: 16px 0 18px;
-      word-break: break-word;
-    }
+    .formula { font-size: clamp(1.35rem, 4vw, 3.4rem); line-height: 1.08; letter-spacing: -.055em; color: #fff; font-weight: 1000; margin: 16px 0 18px; word-break: break-word; }
+    .formula span { color: var(--neon); text-shadow: 0 0 24px rgba(0,231,255,.35); }
+    .pillars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 20px; }
+    .pillar { min-height: 130px; padding: 14px; border-radius: 22px; background: rgba(255,255,255,.065); border: 1px solid rgba(255,255,255,.12); }
+    .pillar b { display: block; color: var(--neon2); line-height: 1.05; margin-bottom: 8px; }
+    .pillar small { color: var(--muted); line-height: 1.42; display: block; }
 
-    .formula span {
-      color: var(--neon);
-      text-shadow: 0 0 24px rgba(0,231,255,.35);
-    }
+    .engine-steps { counter-reset: step; display: grid; gap: 12px; margin-top: 18px; }
+    .engine-step { counter-increment: step; display: grid; grid-template-columns: 46px 1fr; gap: 13px; padding: 17px; border-radius: 22px; background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.11); }
+    .engine-step::before { content: counter(step); width: 44px; height: 44px; border-radius: 16px; display: grid; place-items: center; background: rgba(0,231,255,.14); border: 1px solid rgba(0,231,255,.24); color: var(--neon); font-weight: 1000; }
+    .engine-step h3 { font-size: 1.05rem; margin-bottom: 4px; }
+    .engine-step p { color: var(--muted); }
 
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
+    .fish-world { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr); gap: 18px; align-items: center; }
+    .animal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .animal { min-height: 145px; border-radius: 26px; padding: 18px; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.06); }
+    .animal .emoji { font-size: 2rem; margin-bottom: 8px; }
+    .animal b { display: block; color: #fff; margin-bottom: 5px; }
+    .animal small { color: var(--muted); display: block; line-height: 1.45; }
 
-    .pillar {
-      min-height: 130px;
-      padding: 14px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.065);
-      border: 1px solid rgba(255,255,255,.12);
-    }
+    .future-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .future-item { border-radius: 26px; padding: 20px; background: rgba(255,255,255,.065); border: 1px solid rgba(0,231,255,.16); min-height: 198px; }
+    .future-item h3 { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+    .future-item ul, .clean-list { list-style: none; display: grid; gap: 7px; }
+    .future-item li, .clean-list li { color: var(--muted); display: grid; grid-template-columns: 18px 1fr; gap: 7px; align-items: start; }
+    .future-item li::before, .clean-list li::before { content: "•"; color: var(--neon); font-weight: 1000; }
 
-    .pillar b {
-      display: block;
-      color: var(--neon2);
-      line-height: 1.05;
-      margin-bottom: 8px;
-    }
+    .projects-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .project-mini { min-height: 170px; padding: 18px; border-radius: 24px; border: 1px solid rgba(0,231,255,.17); background: rgba(0,0,0,.26); display: flex; flex-direction: column; justify-content: space-between; }
+    .project-mini b { color: #fff; font-size: 1.04rem; line-height: 1.15; display: block; margin-bottom: 8px; }
+    .project-mini span { color: var(--muted); font-size: .93rem; }
+    .project-mini small { color: var(--neon2); font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
 
-    .pillar small {
-      color: var(--muted);
-      line-height: 1.42;
-      display: block;
-    }
+    .cta-band { padding: 0 0 clamp(52px, 7vw, 90px); }
+    .cta-panel { border-radius: calc(var(--radius) + 16px); padding: clamp(26px, 5vw, 54px); border: 1px solid rgba(0,231,255,.3); background: radial-gradient(circle at 18% 20%, rgba(0,231,255,.24), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.11), rgba(0,0,0,.28)); text-align: center; overflow: hidden; position: relative; }
+    .cta-panel::before, .cta-panel::after { content: ""; position: absolute; border-radius: 50%; filter: blur(32px); opacity: .45; }
+    .cta-panel::before { width: 170px; height: 170px; background: var(--neon); left: -70px; top: -70px; }
+    .cta-panel::after { width: 210px; height: 210px; background: rgba(117,255,184,.55); right: -120px; bottom: -100px; }
+    .cta-panel > * { position: relative; }
+    .cta-panel h2 { margin-inline: auto; max-width: 860px; }
+    .cta-panel p { color: var(--soft); max-width: 760px; margin: 0 auto; font-size: 1.08rem; }
+    .cta-panel a:not(.btn) { color: var(--neon2); font-weight: 1000; text-decoration: underline; text-underline-offset: 4px; }
 
-    .engine-steps {
-      counter-reset: step;
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
+    footer { border-top: 1px solid rgba(0,231,255,.18); padding: 28px 0 38px; color: var(--muted); background: rgba(0,0,0,.24); }
+    .footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .footer-grid a { color: var(--neon2); font-weight: 900; }
 
-    .engine-step {
-      counter-increment: step;
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      gap: 13px;
-      padding: 17px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.11);
-    }
-
-    .engine-step::before {
-      content: counter(step);
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      background: rgba(0,231,255,.14);
-      border: 1px solid rgba(0,231,255,.24);
-      color: var(--neon);
-      font-weight: 1000;
-    }
-
-    .engine-step h3 {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-    }
-
-    .engine-step p {
-      color: var(--muted);
-    }
-
-    .fish-world {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
-      gap: 18px;
-      align-items: center;
-    }
-
-    .animal-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .animal {
-      min-height: 145px;
-      border-radius: 26px;
-      padding: 18px;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.06);
-    }
-
-    .animal .emoji {
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-
-    .animal b {
-      display: block;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .animal small {
-      color: var(--muted);
-      display: block;
-      line-height: 1.45;
-    }
-
-    .future-map {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .future-item {
-      border-radius: 26px;
-      padding: 20px;
-      background: rgba(255,255,255,.065);
-      border: 1px solid rgba(0,231,255,.16);
-      min-height: 198px;
-    }
-
-    .future-item h3 {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    .future-item ul,
-    .clean-list {
-      list-style: none;
-      display: grid;
-      gap: 7px;
-    }
-
-    .future-item li,
-    .clean-list li {
-      color: var(--muted);
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 7px;
-      align-items: start;
-    }
-
-    .future-item li::before,
-    .clean-list li::before {
-      content: "•";
-      color: var(--neon);
-      font-weight: 1000;
-    }
-
-    .projects-strip {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .project-mini {
-      min-height: 170px;
-      padding: 18px;
-      border-radius: 24px;
-      border: 1px solid rgba(0,231,255,.17);
-      background: rgba(0,0,0,.26);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .project-mini b {
-      color: #fff;
-      font-size: 1.04rem;
-      line-height: 1.15;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .project-mini span {
-      color: var(--muted);
-      font-size: .93rem;
-    }
-
-    .project-mini small {
-      color: var(--neon2);
-      font-weight: 900;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-    }
-
-    .cta-band {
-      padding: 0 0 clamp(52px, 7vw, 90px);
-    }
-
-    .cta-panel {
-      border-radius: calc(var(--radius) + 16px);
-      padding: clamp(26px, 5vw, 54px);
-      border: 1px solid rgba(0,231,255,.3);
-      background:
-        radial-gradient(circle at 18% 20%, rgba(0,231,255,.24), transparent 34%),
-        linear-gradient(135deg, rgba(255,255,255,.11), rgba(0,0,0,.28));
-      box-shadow: var(--shadow);
-      text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .cta-panel::before,
-    .cta-panel::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(32px);
-      opacity: .45;
-    }
-
-    .cta-panel::before {
-      width: 170px;
-      height: 170px;
-      background: var(--neon);
-      left: -70px;
-      top: -70px;
-    }
-
-    .cta-panel::after {
-      width: 210px;
-      height: 210px;
-      background: rgba(117,255,184,.55);
-      right: -120px;
-      bottom: -100px;
-    }
-
-    .cta-panel > * {
-      position: relative;
-    }
-
-    .cta-panel h2 {
-      margin-inline: auto;
-      max-width: 860px;
-    }
-
-    .cta-panel p {
-      color: var(--soft);
-      max-width: 760px;
-      margin: 0 auto;
-      font-size: 1.08rem;
-    }
-
-    footer {
-      border-top: 1px solid rgba(0,231,255,.18);
-      padding: 28px 0 38px;
-      color: var(--muted);
-      background: rgba(0,0,0,.24);
-    }
-
-    .footer-grid {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-grid a {
-      color: var(--neon2);
-      font-weight: 900;
-    }
-
-    .back-top {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      width: 48px;
-      height: 48px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(0,231,255,.35);
-      background: rgba(2,7,18,.8);
-      backdrop-filter: blur(14px);
-      color: var(--neon);
-      box-shadow: 0 12px 34px rgba(0,0,0,.3);
-      opacity: 0;
-      pointer-events: none;
-      transition: .25s ease;
-      z-index: 60;
-      font-weight: 1000;
-    }
-
-    .back-top.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .75s ease, transform .75s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .copy-toast {
-      position: fixed;
-      left: 50%;
-      bottom: 22px;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(0, 231, 255, .94);
-      color: #001016;
-      font-weight: 1000;
-      padding: 12px 16px;
-      border-radius: 999px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.28);
-      opacity: 0;
-      pointer-events: none;
-      transition: .25s ease;
-      z-index: 70;
-    }
-
-    .copy-toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    .back-top { position: fixed; right: 16px; bottom: 16px; width: 48px; height: 48px; border-radius: 18px; display: grid; place-items: center; border: 1px solid rgba(0,231,255,.35); background: rgba(2,7,18,.8); backdrop-filter: blur(14px); color: var(--neon); box-shadow: 0 12px 34px rgba(0,0,0,.3); opacity: 0; pointer-events: none; transition: .25s ease; z-index: 60; font-weight: 1000; }
+    .back-top.show { opacity: 1; pointer-events: auto; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .copy-toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%) translateY(20px); background: rgba(0, 231, 255, .94); color: #001016; font-weight: 1000; padding: 12px 16px; border-radius: 999px; box-shadow: 0 18px 50px rgba(0,0,0,.28); opacity: 0; pointer-events: none; transition: .25s ease; z-index: 200; }
+    .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     @media (max-width: 980px) {
-      .hero-grid,
-      .manifesto,
-      .fish-world {
-        grid-template-columns: 1fr;
-      }
-
-      .sticky-title {
-        position: relative;
-        top: auto;
-      }
-
-      .grid-3,
-      .future-map {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .pillars {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .projects-strip {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .nav {
-        align-items: flex-start;
-        padding: 14px 0;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        justify-content: flex-start;
-      }
+      .hero-grid, .manifesto, .fish-world { grid-template-columns: 1fr; }
+      .sticky-title { position: relative; top: auto; }
+      .grid-3, .future-map { grid-template-columns: repeat(2, 1fr); }
+      .pillars { grid-template-columns: repeat(3, 1fr); }
+      .projects-strip { grid-template-columns: repeat(2, 1fr); }
+      .nav { min-height: 64px; padding: 10px 0; }
+      .hero-image-card { justify-self: start; max-width: 340px; height: 420px; }
     }
 
     @media (max-width: 680px) {
-      .hero-thumbnail {
-        width: min(100%, 340px);
-        max-width: 340px;
-        justify-self: center;
-      }
-
-      .wrap {
-        width: min(100% - 22px, var(--max));
-      }
-
-      .topbar {
-        position: relative;
-      }
-
-      .brand {
-        min-width: auto;
-      }
-
-      .nav-links {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: 100%;
-      }
-
-      .nav-links a {
-        text-align: center;
-        background: rgba(255,255,255,.045);
-      }
-
-      .hero {
-        padding-top: 38px;
-      }
-
-      h1 {
-        font-size: clamp(2.75rem, 17vw, 5.2rem);
-      }
-
-      .pronounce {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-2,
-      .grid-3,
-      .future-map,
-      .projects-strip,
-      .animal-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pillars {
-        grid-template-columns: 1fr;
-      }
-
-      .story {
-        grid-template-columns: 1fr;
-      }
-
-      .story-icon {
-        width: 54px;
-        height: 54px;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .ticker span {
-        font-size: .78rem;
-      }
-
-      .back-top {
-        right: 12px;
-        bottom: 12px;
-      }
+      .wrap { width: min(100% - 22px, var(--max)); }
+      .nav { min-height: 58px; gap: 10px; }
+      .brand { flex: 1 1 auto; }
+      .brand strong { font-size: .82rem; letter-spacing: .12em; }
+      .brand span { max-width: 56vw; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+      .logo-mark { width: 38px; height: 38px; border-radius: 14px; }
+      .menu-toggle { min-height: 40px; padding: 9px 12px; }
+      .menu-text { display: none; }
+      .menu-panel { position: fixed; top: 62px; left: 11px; right: 11px; width: auto; transform-origin: top center; }
+      .hero { padding-top: 38px; }
+      h1 { font-size: clamp(2.75rem, 17vw, 5.2rem); }
+      .hero-image-card { justify-self: center; max-width: 100%; height: auto; aspect-ratio: 592 / 736; }
+      .hero-image-card img { height: 100%; object-fit: cover; }
+      .pronounce, .grid-2, .grid-3, .future-map, .projects-strip, .animal-grid, .pillars { grid-template-columns: 1fr; }
+      .story { grid-template-columns: 1fr; }
+      .story-icon { width: 54px; height: 54px; }
+      .btn { width: 100%; }
+      .ticker span { font-size: .78rem; }
+      .back-top { right: 12px; bottom: 12px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .001ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  
-    /* HARD IMAGE FIX — keeps the About Cornelius thumbnail clean and stops old image rules affecting it */
-    .hero-image-card {
-      width: 100% !important;
-      max-width: 360px !important;
-      height: clamp(300px, 38vw, 455px) !important;
-      justify-self: end !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      border-radius: 28px !important;
-      overflow: hidden !important;
-      border: 1px solid rgba(0,231,255,.28) !important;
-      background: #020712 !important;
-      box-shadow: var(--shadow) !important;
-      display: block !important;
-    }
-
-    .hero-image-card img {
-      width: 100% !important;
-      height: 100% !important;
-      display: block !important;
-      object-fit: cover !important;
-      object-position: center top !important;
-      border: 0 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    @media (max-width: 980px) {
-      .hero-image-card {
-        justify-self: start !important;
-        max-width: 340px !important;
-        height: 420px !important;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .hero-image-card {
-        justify-self: center !important;
-        max-width: 100% !important;
-        height: auto !important;
-        aspect-ratio: 592 / 736 !important;
-      }
-
-      .hero-image-card img {
-        height: 100% !important;
-        object-fit: cover !important;
-      }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -1266,16 +610,24 @@
       </a>
 
       <nav class="nav-links" aria-label="Page navigation">
-        <a class="home-icon" href="https://corneliusaurelius.com/" target="_blank" rel="noopener" aria-label="Go to corneliusaurelius.com">⌂ Home</a>
-        <a href="#story">Story</a>
-        <a href="#creator">Creator</a>
-        <a href="#ai">AI</a>
-        <a href="#engine">Engine</a>
-        <a href="#wasted-energy">Energy</a>
-        <a href="#forward">Move</a>
-        <a href="#polymath">Polymath</a>
-        <a href="#future">Future</a>
-        <a href="#support">Tip</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open page menu">
+          <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="menu-text">Menu</span>
+          <span class="menu-chevron" aria-hidden="true">⌄</span>
+        </button>
+
+        <div class="menu-panel" id="site-menu">
+          <a class="home-icon" href="https://corneliusaurelius.com/" target="_blank" rel="noopener" aria-label="Go to corneliusaurelius.com">⌂ Home</a>
+          <a href="#story">Story</a>
+          <a href="#creator">Creator</a>
+          <a href="#ai">AI</a>
+          <a href="#engine">Engine</a>
+          <a href="#wasted-energy">Energy</a>
+          <a href="#forward">Move</a>
+          <a href="#polymath">Polymath</a>
+          <a href="#future">Future</a>
+          <a href="#support">Tip</a>
+        </div>
       </nav>
     </div>
   </header>
@@ -1284,7 +636,7 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="reveal">
-          <div class="eyebrow"><span class="pulse-dot"></span> About me, without the boring corporate mask</div>
+          <div class="eyebrow"><span class="pulse-dot"></span> About me</div>
           <h1>Hi, I’m <span class="neon-text">Cornelius Aurelius.</span></h1>
           <p class="hero-lede">
             You can call me Cornelius Aurelius. If you are wondering how to say the second bit, it is pronounced <strong>or-rel-lee-us</strong>. Yes, it sounds like I should be arriving on a horse with a sword. In reality, I am probably wearing black clothes, a cap, and trying not to walk into a colour-based disaster.
@@ -1324,9 +676,7 @@
           </div>
 
           <div class="identity-card">
-            <p>
-              I want people to know me properly — not because I need a pity parade, but because when my work wins, the people it helps win too.
-            </p>
+            <p>I want people to know me properly — not because I need a pity parade, but because when my work wins, the people it helps win too.</p>
             <div class="identity-list">
               <span class="tag">Colour blind</span>
               <span class="tag">Failed football player</span>
@@ -1346,26 +696,8 @@
 
       <div class="ticker" aria-hidden="true">
         <div class="ticker-track">
-          <span><i></i> Colour blindness</span>
-          <span><i></i> Bad eyesight</span>
-          <span><i></i> Sensitive eyes</span>
-          <span><i></i> Failed school</span>
-          <span><i></i> Failed football</span>
-          <span><i></i> Failed business</span>
-          <span><i></i> Inventor / Creator</span>
-          <span><i></i> Psychology</span>
-          <span><i></i> Marketing without manipulation</span>
-          <span><i></i> Personalised Equilibrium</span>
-          <span><i></i> Colour blindness</span>
-          <span><i></i> Bad eyesight</span>
-          <span><i></i> Sensitive eyes</span>
-          <span><i></i> Failed school</span>
-          <span><i></i> Failed football</span>
-          <span><i></i> Failed business</span>
-          <span><i></i> Inventor / Creator</span>
-          <span><i></i> Psychology</span>
-          <span><i></i> Marketing without manipulation</span>
-          <span><i></i> Personalised Equilibrium</span>
+          <span><i></i> Colour blindness</span><span><i></i> Bad eyesight</span><span><i></i> Sensitive eyes</span><span><i></i> Failed school</span><span><i></i> Failed football</span><span><i></i> Failed business</span><span><i></i> Inventor / Creator</span><span><i></i> Psychology</span><span><i></i> Marketing without manipulation</span><span><i></i> Personalised Equilibrium</span>
+          <span><i></i> Colour blindness</span><span><i></i> Bad eyesight</span><span><i></i> Sensitive eyes</span><span><i></i> Failed school</span><span><i></i> Failed football</span><span><i></i> Failed business</span><span><i></i> Inventor / Creator</span><span><i></i> Psychology</span><span><i></i> Marketing without manipulation</span><span><i></i> Personalised Equilibrium</span>
         </div>
       </div>
     </section>
@@ -1380,37 +712,10 @@
 
         <div class="grid-2">
           <div class="story-stack reveal">
-            <article class="story">
-              <div class="story-icon">👁️</div>
-              <div>
-                <h3>The classroom blur</h3>
-                <p>I remember sitting in class unable to properly see the teacher’s handwriting on the board. Everyone else seemed to be receiving the information. I was receiving fog, pressure, and the quiet feeling that maybe I was the problem.</p>
-              </div>
-            </article>
-
-            <article class="story">
-              <div class="story-icon">⚽</div>
-              <div>
-                <h3>The professional football dream</h3>
-                <p>I wanted to be a professional footballer pretty much all my life. The problem was, I also had a special talent for playing unbelievable 40-yard passes directly to the opposition, usually to some opponent standing completely on his own like I had personally selected him for delivery. Then I would get substituted and wonder why the manager was not appreciating my creativity. #colourblindproblems</p>
-              </div>
-            </article>
-
-            <article class="story">
-              <div class="story-icon">🎨</div>
-              <div>
-                <h3>The fence incident</h3>
-                <p>I once painted my family home fence the wrong colour. Other people call that a mistake. I call it an early field experiment in why colour should not be trusted as the only source of information.</p>
-              </div>
-            </article>
-
-            <article class="story">
-              <div class="story-icon">🧦</div>
-              <div>
-                <h3>The odd socks era</h3>
-                <p>I went to school wearing odd socks because I genuinely thought they were the same colour. My sarcastic brothers, being the loving emotional support team they were, often asked if I got dressed in the dark.</p>
-              </div>
-            </article>
+            <article class="story"><div class="story-icon">👁️</div><div><h3>The classroom blur</h3><p>I remember sitting in class unable to properly see the teacher’s handwriting on the board. Everyone else seemed to be receiving the information. I was receiving fog, pressure, and the quiet feeling that maybe I was the problem.</p></div></article>
+            <article class="story"><div class="story-icon">⚽</div><div><h3>The professional football dream</h3><p>I wanted to be a professional footballer pretty much all my life. The problem was, I also had a special talent for playing unbelievable 40-yard passes directly to the opposition, usually to some opponent standing completely on his own like I had personally selected him for delivery. Then I would get substituted and wonder why the manager was not appreciating my creativity. #colourblindproblems</p></div></article>
+            <article class="story"><div class="story-icon">🎨</div><div><h3>The fence incident</h3><p>I once painted my family home fence the wrong colour. Other people call that a mistake. I call it an early field experiment in why colour should not be trusted as the only source of information.</p></div></article>
+            <article class="story"><div class="story-icon">🧦</div><div><h3>The odd socks era</h3><p>I went to school wearing odd socks because I genuinely thought they were the same colour. My sarcastic brothers, being the loving emotional support team they were, often asked if I got dressed in the dark.</p></div></article>
           </div>
 
           <div class="card black-uniform reveal">
@@ -1429,12 +734,8 @@
     <section>
       <div class="wrap">
         <div class="quote-panel reveal">
-          <blockquote>
-            I am not trying to turn failure into a sad story. <span class="slash">/</span> I am trying to turn it into useful equipment.
-          </blockquote>
-          <p>
-            That is the whole point of my work. If I struggled with something and found a way to explain it, game it, teach it, design it, or prevent it hurting someone else, then the failure was not wasted. It became material.
-          </p>
+          <blockquote>I am not trying to turn failure into a sad story. <span class="slash">/</span> I am trying to turn it into useful equipment.</blockquote>
+          <p>That is the whole point of my work. If I struggled with something and found a way to explain it, game it, teach it, design it, or prevent it hurting someone else, then the failure was not wasted. It became material.</p>
         </div>
       </div>
     </section>
@@ -1448,36 +749,16 @@
         </div>
 
         <div class="long-copy reveal">
-          <p>
-            For more than ten years, I studied how to sell. Marketing. Psychology. Persuasion. Offers. Funnels. Side hustles. Dropshipping. Print on demand. Website flipping. eBay. Etsy. Amazon. Forex. Crypto. The whole circus.
-          </p>
-          <p>
-            The more I learned, the more I understood how to influence people. And the more I understood influence, the more I hated the version of selling that feels like tricking someone into buying something useless, overpriced, or wrong for them.
-          </p>
-          <div class="confession">
-            <b>Confession:</b> I was not bad at learning business. I was bad at making money from things I did not feel proud to sell.
-          </div>
-          <p>
-            I have always tried to keep a guilt-free conscience. That sounds noble until you realise it can make you overthink everything. What if this goes wrong for them? What if they need that money? What if I help them badly? What if I should change this first? What if, what if, what if.
-          </p>
-          <p>
-            I think guilt made me quietly sabotage my own hard work. Not because I did not want to succeed. Because I did not want to succeed by becoming someone I would not trust.
-          </p>
-          <p>
-            So I stopped trying to force myself to become the version of an entrepreneur I hated. I went back to what I think I always was underneath it all: <span class="highlight">an inventor and creator.</span>
-          </p>
-          <p>
-            I once heard a filmmaker talk about putting a hidden piece of himself into his work. That idea stayed with me. I started creating things that had a piece of me in them: a painful experience, a strange emotion, a struggle I had, a struggle someone close to me had, or a problem I wished someone had explained to me earlier.
-          </p>
-          <p>
-            That changed everything. When I create from that place, I do not feel like I am manipulating someone. I feel like I am handing them something I wish existed when I needed it.
-          </p>
-          <p>
-            My goal is simple: I want to create things so useful that I do not have to “sell” them in the dirty way. People should feel helped first. The value should be obvious. The support should feel deserved.
-          </p>
-          <p>
-            If I could teach selling in three words, it would be this: <strong>provide love, hope, desire.</strong> Not fake desire. Not manufactured insecurity. Real value. Real hope. Real help.
-          </p>
+          <p>For more than ten years, I studied how to sell. Marketing. Psychology. Persuasion. Offers. Funnels. Side hustles. Dropshipping. Print on demand. Website flipping. eBay. Etsy. Amazon. Forex. Crypto. The whole circus.</p>
+          <p>The more I learned, the more I understood how to influence people. And the more I understood influence, the more I hated the version of selling that feels like tricking someone into buying something useless, overpriced, or wrong for them.</p>
+          <div class="confession"><b>Confession:</b> I was not bad at learning business. I was bad at making money from things I did not feel proud to sell.</div>
+          <p>I have always tried to keep a guilt-free conscience. That sounds noble until you realise it can make you overthink everything. What if this goes wrong for them? What if they need that money? What if I help them badly? What if I should change this first? What if, what if, what if.</p>
+          <p>I think guilt made me quietly sabotage my own hard work. Not because I did not want to succeed. Because I did not want to succeed by becoming someone I would not trust.</p>
+          <p>So I stopped trying to force myself to become the version of an entrepreneur I hated. I went back to what I think I always was underneath it all: <span class="highlight">an inventor and creator.</span></p>
+          <p>I once heard a filmmaker talk about putting a hidden piece of himself into his work. That idea stayed with me. I started creating things that had a piece of me in them: a painful experience, a strange emotion, a struggle I had, a struggle someone close to me had, or a problem I wished someone had explained to me earlier.</p>
+          <p>That changed everything. When I create from that place, I do not feel like I am manipulating someone. I feel like I am handing them something I wish existed when I needed it.</p>
+          <p>My goal is simple: I want to create things so useful that I do not have to “sell” them in the dirty way. People should feel helped first. The value should be obvious. The support should feel deserved.</p>
+          <p>If I could teach selling in three words, it would be this: <strong>provide love, hope, desire.</strong> Not fake desire. Not manufactured insecurity. Real value. Real hope. Real help.</p>
         </div>
       </div>
     </section>
@@ -1504,27 +785,17 @@
             <br />
             <p>If there was a governing body for overtrying, I would have been banned years ago. I would be stood outside the stadium of my latest obsession with a lifetime suspension, arguing with security like, “Just one more attempt, I think I’ve cracked it this time.”</p>
             <br />
-            <p>Then, when I finally get blocked, bored, banned, broke, humbled or emotionally escorted out of the idea, I move on to the next thing and repeat the whole beautiful disaster again. Rinse. Repeat. Hyper-focus. Fail hundreds of times. Learn something weird. Move on. Do it again.</p>
-            <br />
             <p>For years, those failures just looked like failures. Recently, they started looking like pieces. Random skills. Random experiments. Random scars. Then AI arrived, and suddenly the pieces started clicking together.</p>
           </div>
         </div>
 
         <div class="quote-panel reveal" style="margin-top:16px;">
-          <blockquote>
-            AI did not give me the ideas. It helped me communicate the madness in a form other people could actually use.
-          </blockquote>
-          <p>
-            Books. Games. Inventions. Art. Music. Websites. Frameworks. I use AI as a communication engine — a way to shape, test, translate and build the ideas that were already in me. The insight is mine. The struggle is mine. The mission is mine. The tool helps me get it out of my head and into the world before I talk myself out of sharing it.
-          </p>
+          <blockquote>AI did not give me the ideas. It helped me communicate the madness in a form other people could actually use.</blockquote>
+          <p>Books. Games. Inventions. Art. Music. Websites. Frameworks. I use AI as a communication engine — a way to shape, test, translate and build the ideas that were already in me. The insight is mine. The struggle is mine. The mission is mine. The tool helps me get it out of my head and into the world before I talk myself out of sharing it.</p>
           <br />
-          <p>
-            A perspective I think about a lot is Vincent van Gogh’s art not being appreciated in the way it deserved while he was alive. My weird thought is: what if everything I ever make is not appreciated or useful until 500 years later? Strangely, that helps me. It makes me less scared of judgement. It gives me permission to create without needing the present moment to clap immediately.
-          </p>
+          <p>A perspective I think about a lot is Vincent van Gogh’s art not being appreciated in the way it deserved while he was alive. My weird thought is: what if everything I ever make is not appreciated or useful until 500 years later? Strangely, that helps me. It makes me less scared of judgement. It gives me permission to create without needing the present moment to clap immediately.</p>
           <br />
-          <p>
-            Another useful insight I heard from will.i.am was that creatives are like sponges. Sometimes they need to rinse themselves out just to get the creativity out of their system so they can be creative again. Good idea, bad idea, strange idea, embarrassing idea — sometimes it just has to come out. Rinse. Repeat. Create. Rinse again.
-          </p>
+          <p>Another useful insight I heard from will.i.am was that creatives are like sponges. Sometimes they need to rinse themselves out just to get the creativity out of their system so they can be creative again. Good idea, bad idea, strange idea, embarrassing idea — sometimes it just has to come out. Rinse. Repeat. Create. Rinse again.</p>
         </div>
       </div>
     </section>
@@ -1534,13 +805,9 @@
         <div class="formula-box reveal">
           <div class="kicker">The Equilibrium Engine</div>
           <h2>A life operating system for people whose life is fighting itself.</h2>
-          <p class="mini-note">
-            Not so long ago, I went into one of my super-delusional, hyper-focused bullshit modes where I randomly decided I was going to try and figure out the theory of everything. Normal people make a cup of tea. I apparently try to explain existence.
-            <br /><br />
-            What I found might turn out to be complete bullshit when actual scientists review it properly. I am fully aware of that. But I still found the idea interesting, useful, and weirdly powerful. In my head, I could see it feeding books, games, stories, inventions, and even a film I want to make in a few years — which, because I am still slightly delusional, will probably be the most watched film of the century.
-            <br /><br />
-            The rough idea was this: all existence is a self-balancing informational system where Energy, Information and Awareness continuously rebalance until wasted energy is minimised and equilibrium is restored. Then I stopped trying to use it on the universe and asked a more useful question: what if humans are also trying to reach equilibrium? That is where the Equilibrium Engine came from.
-          </p>
+          <p class="mini-note">Not so long ago, I went into one of my super-delusional, hyper-focused modes where I randomly decided I was going to try and figure out the theory of everything. Normal people make a cup of tea. I apparently try to explain existence.</p>
+          <br />
+          <p class="mini-note">What I found might turn out to be completely wrong when actual scientists review it properly. I am fully aware of that. But I still found the idea interesting, useful, and weirdly powerful. The rough idea was this: all existence is a self-balancing informational system where Energy, Information and Awareness continuously rebalance until wasted energy is minimised and equilibrium is restored. Then I asked a more useful question: what if humans are also trying to reach equilibrium?</p>
 
           <div class="formula" id="formulaText">
             (<span>Energy</span> + <span>Information</span> + <span>Awareness</span>) across (<span>Health</span> + <span>Wealth</span> + <span>Love</span> + <span>Flow</span> + <span>Structured Pain</span> + <span>Perspective</span>) → δJ → 0
@@ -1562,52 +829,16 @@
         </div>
 
         <div class="grid-2" style="margin-top:16px;">
-          <div class="card reveal">
-            <h3>The simple version</h3>
-            <p>Your system is either aligned or misaligned. The engine uses Energy, Information and Awareness to regulate the six pillars of life while reducing Wasted Energy, so your system drift falls toward zero and you move toward Personalised Equilibrium.</p>
-            <br />
-            <p><strong>Personalised Equilibrium</strong> does not mean copying someone else’s perfect routine. It means building a life around who you actually are, what you can sustain, and what stops your life fighting itself.</p>
-          </div>
-
-          <div class="card reveal">
-            <h3>Wasted Energy</h3>
-            <p>Wasted Energy is anything leaking life force out of the system: toxic relationships, wrong career alignment, emotional chaos, unresolved pain, distraction, shallow busyness, bad decision loops, confusion, self-neglect, and internal conflict.</p>
-            <br />
-            <p>The aim is not just to get more energy. The aim is to stop losing it in places that never deserved it.</p>
-          </div>
+          <div class="card reveal"><h3>The simple version</h3><p>Your system is either aligned or misaligned. The engine uses Energy, Information and Awareness to regulate the six pillars of life while reducing Wasted Energy, so your system drift falls toward zero and you move toward Personalised Equilibrium.</p><br /><p><strong>Personalised Equilibrium</strong> does not mean copying someone else’s perfect routine. It means building a life around who you actually are, what you can sustain, and what stops your life fighting itself.</p></div>
+          <div class="card reveal"><h3>Wasted Energy</h3><p>Wasted Energy is anything leaking life force out of the system: toxic relationships, wrong career alignment, emotional chaos, unresolved pain, distraction, shallow busyness, bad decision loops, confusion, self-neglect, and internal conflict.</p><br /><p>The aim is not just to get more energy. The aim is to stop losing it in places that never deserved it.</p></div>
         </div>
 
         <div class="engine-steps reveal">
-          <div class="engine-step">
-            <div>
-              <h3>Observe the six pillars</h3>
-              <p>Look at Health, Wealth, Love, Flow, Structured Pain and Perspective as one connected system, not six unrelated problems.</p>
-            </div>
-          </div>
-          <div class="engine-step">
-            <div>
-              <h3>Detect the drift</h3>
-              <p>Ask where instability is increasing. Which pillar is leaking energy? Which weak link is making the rest of life harder?</p>
-            </div>
-          </div>
-          <div class="engine-step">
-            <div>
-              <h3>Personalise the correction</h3>
-              <p>Do not copy random advice. Calibrate the fix around your biology, skills, boundaries, temperament, stress tolerance and identity.</p>
-            </div>
-          </div>
-          <div class="engine-step">
-            <div>
-              <h3>Reduce wasted energy</h3>
-              <p>Remove friction, redirect effort, close leaks, and stop pouring energy into systems that keep destabilising you.</p>
-            </div>
-          </div>
-          <div class="engine-step">
-            <div>
-              <h3>Repeat the loop</h3>
-              <p>Explain → Observe → Self-Assess → Personalise → Adjust. The engine is not a one-time fix. It is a recalibration loop.</p>
-            </div>
-          </div>
+          <div class="engine-step"><div><h3>Observe the six pillars</h3><p>Look at Health, Wealth, Love, Flow, Structured Pain and Perspective as one connected system, not six unrelated problems.</p></div></div>
+          <div class="engine-step"><div><h3>Detect the drift</h3><p>Ask where instability is increasing. Which pillar is leaking energy? Which weak link is making the rest of life harder?</p></div></div>
+          <div class="engine-step"><div><h3>Personalise the correction</h3><p>Do not copy random advice. Calibrate the fix around your biology, skills, boundaries, temperament, stress tolerance and identity.</p></div></div>
+          <div class="engine-step"><div><h3>Reduce wasted energy</h3><p>Remove friction, redirect effort, close leaks, and stop pouring energy into systems that keep destabilising you.</p></div></div>
+          <div class="engine-step"><div><h3>Repeat the loop</h3><p>Explain → Observe → Self-Assess → Personalise → Adjust. The engine is not a one-time fix. It is a recalibration loop.</p></div></div>
         </div>
       </div>
     </section>
@@ -1617,12 +848,8 @@
         <div class="section-head reveal">
           <div class="kicker">How I try to see people</div>
           <h2>“Everybody is a Genius. But If You Judge a Fish by Its Ability to Climb a Tree, It Will Live Its Whole Life Believing that It is less capable.”</h2>
-          <p>
-            That quote changed how I looked at myself and other people. It helped me stop judging people by skills their life was never built around. It also helped me stop feeling insecure when people judged me by standards that did not fit how I actually see, think, learn or create.
-          </p>
-          <p style="margin-top:14px; color:var(--soft);">
-            I imagine the human race like different species of animals. A cheetah might judge a sloth for moving slowly. A sloth might judge a cheetah for always rushing. Neither is wrong. They are built differently, living differently, and surviving differently. The mistake is judging others by your own way of life, then judging yourself by someone else’s.
-          </p>
+          <p>That quote changed how I looked at myself and other people. It helped me stop judging people by skills their life was never built around. It also helped me stop feeling insecure when people judged me by standards that did not fit how I actually see, think, learn or create.</p>
+          <p style="margin-top:14px; color:var(--soft);">I imagine the human race like different species of animals. A cheetah might judge a sloth for moving slowly. A sloth might judge a cheetah for always rushing. Neither is wrong. They are built differently, living differently, and surviving differently. The mistake is judging others by your own way of life, then judging yourself by someone else’s.</p>
         </div>
 
         <div class="animal-grid reveal">
@@ -1643,21 +870,8 @@
         </div>
 
         <div class="grid-2">
-          <div class="card reveal">
-            <h3>Stress often builds before people notice</h3>
-            <p>Stress does not always arrive as one giant explosion. Sometimes it creeps in through small leaks: bad routines, unclear goals, toxic environments, poor recovery, money pressure, relationship chaos, identity confusion, too many decisions, too much noise, and not enough awareness of what is actually draining you.</p>
-            <br />
-            <p>That is why I talk about personalised systems. Not everyone needs the same routine, the same advice, the same morning plan or the same life template. People need systems that fit how they actually work, so they can reduce friction before the day becomes too heavy to carry.</p>
-          </div>
-
-          <div class="card reveal">
-            <h3>Personalised systems prevent overload</h3>
-            <p>The goal is to help people notice their patterns earlier: what drains them, what stabilises them, what causes drift, what makes them overthink, what makes them shut down, and what helps them come back to themselves.</p>
-            <br />
-            <p>If you can reduce wasted energy early enough, you may reduce stress before it turns into full overload. That is the practical side of Personalised Equilibrium: build a life that stops fighting you so much.</p>
-            <br />
-            <p>Keep a look out on <a href="https://corneliusaurelius.com/" target="_blank" rel="noopener" style="color:var(--neon2); font-weight:1000; text-decoration:underline; text-underline-offset:4px;">corneliusaurelius.com</a> because I have free ebooks and tools around this kind of stuff.</p>
-          </div>
+          <div class="card reveal"><h3>Stress often builds before people notice</h3><p>Stress does not always arrive as one giant explosion. Sometimes it creeps in through small leaks: bad routines, unclear goals, toxic environments, poor recovery, money pressure, relationship chaos, identity confusion, too many decisions, too much noise, and not enough awareness of what is actually draining you.</p><br /><p>That is why I talk about personalised systems. Not everyone needs the same routine, the same advice, the same morning plan or the same life template. People need systems that fit how they actually work, so they can reduce friction before the day becomes too heavy to carry.</p></div>
+          <div class="card reveal"><h3>Personalised systems prevent overload</h3><p>The goal is to help people notice their patterns earlier: what drains them, what stabilises them, what causes drift, what makes them overthink, what makes them shut down, and what helps them come back to themselves.</p><br /><p>If you can reduce wasted energy early enough, you may reduce stress before it turns into full overload. That is the practical side of Personalised Equilibrium: build a life that stops fighting you so much.</p><br /><p>Keep a look out on <a href="https://corneliusaurelius.com/" target="_blank" rel="noopener">corneliusaurelius.com</a> because I have free ebooks and tools around this kind of stuff.</p></div>
         </div>
       </div>
     </section>
@@ -1666,16 +880,10 @@
       <div class="wrap">
         <div class="quote-panel reveal">
           <div class="kicker">Keep Moving Forward</div>
-          <blockquote>
-            Keep moving forward does not mean pretending everything is fine. It means refusing to let one bad chapter become the whole book.
-          </blockquote>
-          <p>
-            I have failed at enough things to know that stopping can sometimes feel logical. But if I had stopped after school, football, business, bad eyesight, colour confusion, failed projects, guilt, overthinking or one more embarrassing attempt at trying to spell entrepreneur, none of this would exist.
-          </p>
+          <blockquote>Keep moving forward does not mean pretending everything is fine. It means refusing to let one bad chapter become the whole book.</blockquote>
+          <p>I have failed at enough things to know that stopping can sometimes feel logical. But if I had stopped after school, football, business, bad eyesight, colour confusion, failed projects, guilt, overthinking or one more embarrassing attempt at trying to spell entrepreneur, none of this would exist.</p>
           <br />
-          <p>
-            Moving forward, for me, is not always dramatic. Sometimes it is one more page. One more game. One more idea. One more upload. One more attempt after the last attempt made me look like an idiot. The trick is not to move perfectly. The trick is to keep moving long enough for the failures to start connecting.
-          </p>
+          <p>Moving forward, for me, is not always dramatic. Sometimes it is one more page. One more game. One more idea. One more upload. One more attempt after the last attempt made me look like an idiot. The trick is not to move perfectly. The trick is to keep moving long enough for the failures to start connecting.</p>
         </div>
       </div>
     </section>
@@ -1689,34 +897,10 @@
         </div>
 
         <div class="projects-strip reveal">
-          <div class="project-mini">
-            <div>
-              <b>Colour Blindness in Football</b>
-              <span>Books, games and awareness tools to help players, parents, coaches and clubs make the game visible before judging the player.</span>
-            </div>
-            <small>Visibility</small>
-          </div>
-          <div class="project-mini">
-            <div>
-              <b>Colour-Blind Games</b>
-              <span>Simple, fast games that train players to use non-colour cues under pressure instead of relying only on colour.</span>
-            </div>
-            <small>Training</small>
-          </div>
-          <div class="project-mini">
-            <div>
-              <b>Equilibrium Engine</b>
-              <span>A framework for detecting life drift, reducing wasted energy, and personalising the path back to stability.</span>
-            </div>
-            <small>Alignment</small>
-          </div>
-          <div class="project-mini">
-            <div>
-              <b>Stories, Art, Music & Film</b>
-              <span>Creative worlds built from emotional truth, strange ideas, failure, humour, and the need to make pain useful.</span>
-            </div>
-            <small>Creation</small>
-          </div>
+          <div class="project-mini"><div><b>Colour Blindness in Football</b><span>Books, games and awareness tools to help players, parents, coaches and clubs make the game visible before judging the player.</span></div><small>Visibility</small></div>
+          <div class="project-mini"><div><b>Colour-Blind Games</b><span>Simple, fast games that train players to use non-colour cues under pressure instead of relying only on colour.</span></div><small>Training</small></div>
+          <div class="project-mini"><div><b>Equilibrium Engine</b><span>A framework for detecting life drift, reducing wasted energy, and personalising the path back to stability.</span></div><small>Alignment</small></div>
+          <div class="project-mini"><div><b>Stories, Art, Music & Film</b><span>Creative worlds built from emotional truth, strange ideas, failure, humour, and the need to make pain useful.</span></div><small>Creation</small></div>
         </div>
       </div>
     </section>
@@ -1726,36 +910,17 @@
         <div class="section-head reveal">
           <div class="kicker">Jack of all trades / polymath energy</div>
           <h2>I used to think having too many interests was a problem. Now I think it might be the cheat code.</h2>
-          <p>Some people are built to go deep into one lane forever. Other people are built more like a messy human toolbox: psychology, business, marketing, invention, football, colour blindness, AI, storytelling, music, games, art, philosophy, systems, and random 4am theories about existence. That kind of mind can look unfocused from the outside. From the inside, it feels like being a jack of all trades with a browser tab problem.</p>
+          <p>Some people are built to go deep into one lane forever. Other people are built more like a messy human toolbox: psychology, business, marketing, invention, football, colour blindness, AI, storytelling, music, games, art, philosophy, systems, and random 4am theories about existence.</p>
         </div>
 
         <div class="grid-2">
-          <div class="card reveal">
-            <h3>The Leonardo da Vinci problem</h3>
-            <p>I think about Leonardo da Vinci because he did not fit neatly into one box. Artist. Inventor. Thinker. Observer. Builder. Curious about everything. That kind of person can look scattered in a world that wants a simple job title, a simple niche, and a simple answer to the question: “So what do you do?”</p>
-            <br />
-            <p>My honest answer is usually: too many things, badly, repeatedly, until one of them starts making sense.</p>
-            <br />
-            <p>But maybe that is not a weakness anymore. Maybe in the next decade, the people who can connect strange interests together will have an advantage, because AI makes it easier to turn mixed knowledge into actual output.</p>
-          </div>
-
-          <div class="card reveal">
-            <h3>The future might reward specific interests</h3>
-            <p>If you feel like a jack of all trades, I believe the next decade could reward you — not because you randomly post everything everywhere, but because you learn how to organise your interests clearly.</p>
-            <br />
-            <p>I think content will increasingly be shown based on what people are interested in, not only based on who they follow. That means the creator with many interests does not have to crush themselves into one fake niche. They just need a better system.</p>
-            <br />
-            <p>The way I see it: create one main account that shows the full person, the full mind, and the full range of interests. Then create interest-specific handles that only post about one specific interest, so the audience knows exactly what they are getting.</p>
-          </div>
+          <div class="card reveal"><h3>The Leonardo da Vinci problem</h3><p>I think about Leonardo da Vinci because he did not fit neatly into one box. Artist. Inventor. Thinker. Observer. Builder. Curious about everything. That kind of person can look scattered in a world that wants a simple job title, a simple niche, and a simple answer to the question: “So what do you do?”</p><br /><p>My honest answer is usually: too many things, badly, repeatedly, until one of them starts making sense.</p><br /><p>But maybe that is not a weakness anymore. Maybe in the next decade, the people who can connect strange interests together will have an advantage, because AI makes it easier to turn mixed knowledge into actual output.</p></div>
+          <div class="card reveal"><h3>The future might reward specific interests</h3><p>If you feel like a jack of all trades, I believe the next decade could reward you — not because you randomly post everything everywhere, but because you learn how to organise your interests clearly.</p><br /><p>I think content will increasingly be shown based on what people are interested in, not only based on who they follow. That means the creator with many interests does not have to crush themselves into one fake niche. They just need a better system.</p><br /><p>The way I see it: create one main account that shows the full person, the full mind, and the full range of interests. Then create interest-specific handles that only post about one specific interest, so the audience knows exactly what they are getting.</p></div>
         </div>
 
         <div class="quote-panel reveal" style="margin-top:16px;">
-          <blockquote>
-            Main account for the whole person. Specific handles for specific worlds.
-          </blockquote>
-          <p>
-            That is how a polymath mind can stop looking chaotic and start looking organised. The main account says, “This is me.” The interest accounts say, “This is the part of me you came for.” Football colour blindness can have its own world. Music can have its own world. Inventions can have their own world. Art can have its own world. The person stays whole, but the content becomes easier to understand.
-          </p>
+          <blockquote>Main account for the whole person. Specific handles for specific worlds.</blockquote>
+          <p>That is how a polymath mind can stop looking chaotic and start looking organised. The main account says, “This is me.” The interest accounts say, “This is the part of me you came for.” Football colour blindness can have its own world. Music can have its own world. Inventions can have their own world. Art can have its own world. The person stays whole, but the content becomes easier to understand.</p>
         </div>
       </div>
     </section>
@@ -1769,89 +934,25 @@
         </div>
 
         <div class="future-map reveal">
-          <div class="future-item">
-            <h3>⚕️ Health</h3>
-            <ul>
-              <li>Physical health</li>
-              <li>Mental health</li>
-              <li>Appearance</li>
-              <li>Physical presentation</li>
-            </ul>
-          </div>
-          <div class="future-item">
-            <h3>💷 Wealth</h3>
-            <ul>
-              <li>Earn</li>
-              <li>Stack / save</li>
-              <li>Multiply</li>
-              <li>Financial stability</li>
-            </ul>
-          </div>
-          <div class="future-item">
-            <h3>❤️ Love</h3>
-            <ul>
-              <li>Family</li>
-              <li>Friendship</li>
-              <li>Romance</li>
-              <li>Attraction and desirability</li>
-            </ul>
-          </div>
-          <div class="future-item">
-            <h3>🌊 Flow</h3>
-            <ul>
-              <li>Deep focus</li>
-              <li>Meaningful engagement</li>
-              <li>Enjoyment of time</li>
-              <li>Immersion</li>
-            </ul>
-          </div>
-          <div class="future-item">
-            <h3>🔥 Structured Pain</h3>
-            <ul>
-              <li>Discipline</li>
-              <li>Delayed gratification</li>
-              <li>Growth through challenge</li>
-              <li>Becoming stronger</li>
-            </ul>
-          </div>
-          <div class="future-item">
-            <h3>🧠 Perspective</h3>
-            <ul>
-              <li>Meaning making</li>
-              <li>Cognitive reframing</li>
-              <li>Long-term viewpoint</li>
-              <li>Identity and self-image</li>
-            </ul>
-          </div>
+          <div class="future-item"><h3>⚕️ Health</h3><ul><li>Physical health</li><li>Mental health</li><li>Appearance</li><li>Physical presentation</li></ul></div>
+          <div class="future-item"><h3>💷 Wealth</h3><ul><li>Earn</li><li>Stack / save</li><li>Multiply</li><li>Financial stability</li></ul></div>
+          <div class="future-item"><h3>❤️ Love</h3><ul><li>Family</li><li>Friendship</li><li>Romance</li><li>Attraction and desirability</li></ul></div>
+          <div class="future-item"><h3>🌊 Flow</h3><ul><li>Deep focus</li><li>Meaningful engagement</li><li>Enjoyment of time</li><li>Immersion</li></ul></div>
+          <div class="future-item"><h3>🔥 Structured Pain</h3><ul><li>Discipline</li><li>Delayed gratification</li><li>Growth through challenge</li><li>Becoming stronger</li></ul></div>
+          <div class="future-item"><h3>🧠 Perspective</h3><ul><li>Meaning making</li><li>Cognitive reframing</li><li>Long-term viewpoint</li><li>Identity and self-image</li></ul></div>
         </div>
 
         <div class="quote-panel reveal" style="margin-top:16px;">
-          <blockquote>
-            Most people still want to be healthier, wealthier, loved, focused, stronger, and able to make sense of life.
-          </blockquote>
-          <p>
-            I think the future looks great for the people who adapt sooner rather than later — especially the creatives who are not afraid to share their creativity before the world gives them permission. The people who experiment early usually look weird first, then useful later.
-          </p>
+          <blockquote>Most people still want to be healthier, wealthier, loved, focused, stronger, and able to make sense of life.</blockquote>
+          <p>I think the future looks great for the people who adapt sooner rather than later — especially the creatives who are not afraid to share their creativity before the world gives them permission. The people who experiment early usually look weird first, then useful later.</p>
           <br />
-          <p>
-            I also think society will value authenticity more than ever over the next decade, even when that authenticity is not perfectly polished, perfectly safe, or perfectly politically correct. People are getting tired of fake voices, fake brands, fake confidence and fake lives. The more AI can produce average perfection, the more valuable real human weirdness becomes.
-          </p>
+          <p>I also think society will value authenticity more than ever over the next decade, even when that authenticity is not perfectly polished, perfectly safe, or perfectly politically correct. People are getting tired of fake voices, fake brands, fake confidence and fake lives. The more AI can produce average perfection, the more valuable real human weirdness becomes.</p>
           <br />
-          <p>
-            Anything old that was genuinely useful in its own time will probably become useful again in this time period, just wearing different clothes. Music, storytelling, communication, finding love, creativity and entertainment are not going away. They are going to find new ways of expressing themselves in the AI, ASI and AGI age.
-          </p>
+          <p>Anything old that was genuinely useful in its own time will probably become useful again in this time period, just wearing different clothes. Music, storytelling, communication, finding love, creativity and entertainment are not going away. They are going to find new ways of expressing themselves in the AI, ASI and AGI age.</p>
           <br />
-          <p>
-            I think gifted humans will find ways to collaborate with humans who are gifted at using AI, and together they will create things neither side could have created alone. Singer plus AI singer. Creator plus AI creator. Human taste plus machine speed. Human emotion plus machine scale.
-          </p>
+          <p>I think gifted humans will find ways to collaborate with humans who are gifted at using AI, and together they will create things neither side could have created alone. Singer plus AI singer. Creator plus AI creator. Human taste plus machine speed. Human emotion plus machine scale.</p>
           <br />
-          <p>
-            I can imagine competitions where someone builds the best AI singer to win a TV show. I can imagine creators building the best AI creative influencer, character, performer or entertainer. I can imagine AI creator-influencer apps where real influencers, singers, writers, designers and creators earn royalties from the AI versions, characters or creative systems built around their talent.
-          </p>
-          <br />
-          <p>
-            That is why I want to keep creating now. The chaos comes first. Then order. Then equilibrium. Then the thing everyone laughed at becomes the new normal.
-          </p>
+          <p>That is why I want to keep creating now. The chaos comes first. Then order. Then equilibrium. Then the thing everyone laughed at becomes the new normal.</p>
         </div>
       </div>
     </section>
@@ -1861,9 +962,7 @@
         <div class="cta-panel reveal">
           <div class="kicker">Support the work</div>
           <h2>If you want me to win, help me keep building things that help people win.</h2>
-          <p>
-            I am not trying to become rich by selling people useless rubbish. I am trying to build books, games, frameworks, stories and tools that make invisible problems easier to understand. You can look at my other work on <a href="https://corneliusaurelius.com/" target="_blank" rel="noopener" style="color:var(--neon2); font-weight:1000; text-decoration:underline; text-underline-offset:4px;">corneliusaurelius.com</a>. If the work helps you, inspires you, entertains you, or makes you want to see what I build next, you can tip below.
-          </p>
+          <p>I am not trying to become rich by selling people useless rubbish. I am trying to build books, games, frameworks, stories and tools that make invisible problems easier to understand. You can look at my other work on <a href="https://corneliusaurelius.com/" target="_blank" rel="noopener">corneliusaurelius.com</a>. If the work helps you, inspires you, entertains you, or makes you want to see what I build next, you can tip below.</p>
           <div class="cta-row" style="justify-content:center;">
             <a class="btn primary" href="https://buy.stripe.com/eVqcMY98h5wo6logZOejK00" target="_blank" rel="noopener">Tip Cornelius</a>
             <a class="btn" href="https://corneliusaurelius.com/" target="_blank" rel="noopener">Visit corneliusaurelius.com</a>
@@ -1889,27 +988,61 @@
     const copyButton = document.getElementById('copyFormula');
     const formulaText = document.getElementById('formulaText');
     const copyToast = document.getElementById('copyToast');
+    const menuWrap = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuPanel = document.getElementById('site-menu');
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    function setDropdownMenu(open) {
+      if (!menuWrap || !menuToggle) return;
+      menuWrap.classList.toggle('is-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close page menu' : 'Open page menu');
+    }
 
-    revealElements.forEach((el) => observer.observe(el));
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setDropdownMenu(!menuWrap.classList.contains('is-open'));
+      });
+    }
+
+    if (menuPanel) {
+      menuPanel.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setDropdownMenu(false);
+      });
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!menuWrap || !menuWrap.classList.contains('is-open')) return;
+      if (!menuWrap.contains(event.target)) setDropdownMenu(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setDropdownMenu(false);
+    });
+
+    const observer = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 })
+      : null;
+
+    revealElements.forEach((el) => {
+      if (observer) observer.observe(el);
+      else el.classList.add('visible');
+    });
 
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 650) {
-        backTop.classList.add('show');
-      } else {
-        backTop.classList.remove('show');
-      }
-    });
+      if (window.scrollY > 650) backTop.classList.add('show');
+      else backTop.classList.remove('show');
+    }, { passive: true });
 
     function showToast(message) {
       copyToast.textContent = message;
@@ -1936,9 +1069,7 @@
       }
     }
 
-    if (copyButton && formulaText) {
-      copyButton.addEventListener('click', copyFormula);
-    }
+    if (copyButton && formulaText) copyButton.addEventListener('click', copyFormula);
   </script>
 </body>
 </html>
