@@ -14,6 +14,7 @@
   <link rel="alternate" hreflang="en-GB" href="https://cornelius-aurelius.github.io/ABOUT-CORNELIUS-AURELIUS/" />
   <link rel="alternate" hreflang="x-default" href="https://cornelius-aurelius.github.io/ABOUT-CORNELIUS-AURELIUS/" />
   <link rel="me" href="https://corneliusaurelius.com/" />
+  <link rel="me" href="https://cornelius-aurelius.github.io/Cornelius-Fitness-Equilibrium/" />
   <meta property="og:type" content="profile" />
   <meta property="og:site_name" content="Cornelius Aurelius" />
   <meta property="og:title" content="About Cornelius Aurelius | Official Author, Inventor &amp; Creator Profile" />
@@ -46,6 +47,7 @@
         "sameAs": [
           "https://corneliusaurelius.com/",
           "https://cornelius-aurelius.github.io/ABOUT-CORNELIUS-AURELIUS/",
+          "https://cornelius-aurelius.github.io/Cornelius-Fitness-Equilibrium/",
           "https://www.instagram.com/cornelius_aurelius_/"
         ],
         "jobTitle": "Author, inventor and creator",
@@ -250,12 +252,12 @@
     }
 
     .menu-toggle {
-      min-height: 44px;
+      min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 10px 15px;
+      padding: 10px 16px;
       border: 1px solid rgba(0,231,255,.34);
       border-radius: 999px;
       color: #001016;
@@ -263,12 +265,13 @@
       font-weight: 1000;
       cursor: pointer;
       box-shadow: 0 0 24px rgba(0,231,255,.28);
-      transition: transform .22s ease, box-shadow .22s ease;
+      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
     }
 
     .menu-toggle:hover,
     .menu-toggle:focus-visible {
       transform: translateY(-1px);
+      filter: saturate(1.08);
       box-shadow: 0 0 34px rgba(0,231,255,.42);
       outline: none;
     }
@@ -289,22 +292,32 @@
       position: absolute;
       top: calc(100% + 12px);
       right: 0;
-      width: min(320px, calc(100vw - 28px));
+      width: min(390px, calc(100vw - 28px));
+      max-height: min(76vh, 620px);
+      overflow-y: auto;
       display: grid;
-      gap: 8px;
-      padding: 10px;
-      border: 1px solid rgba(0,231,255,.25);
-      border-radius: 22px;
-      background: rgba(2,7,18,.98);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 0 28px rgba(0,231,255,.12);
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(0,231,255,.22);
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(5,16,33,.98), rgba(1,5,13,.98)),
+        radial-gradient(circle at top right, rgba(0,231,255,.18), transparent 45%);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 28px 90px rgba(0,0,0,.62), 0 0 34px rgba(0,231,255,.14);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
       transform: translateY(-8px) scale(.98);
       transform-origin: top right;
       transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,231,255,.55) rgba(255,255,255,.05);
     }
+
+    .menu-panel::-webkit-scrollbar { width: 8px; }
+    .menu-panel::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius: 999px; }
+    .menu-panel::-webkit-scrollbar-thumb { background: rgba(0,231,255,.55); border-radius: 999px; }
 
     .nav-links.is-open .menu-panel {
       opacity: 1;
@@ -318,37 +331,133 @@
     .nav-links.is-open .menu-lines span:nth-child(2) { opacity: 0; }
     .nav-links.is-open .menu-lines span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    .menu-panel a,
-    .menu-panel a.home-icon {
-      width: 100%;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 11px 13px;
-      border-radius: 15px;
-      border: 1px solid rgba(0,231,255,.13);
-      background: rgba(255,255,255,.045);
-      color: var(--soft);
-      font-size: .9rem;
-      font-weight: 900;
-      text-align: left;
-      transition: .22s ease;
+    .menu-head {
+      padding: 6px 6px 3px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 2px;
+    }
+    .menu-head .menu-kicker {
+      display: block;
+      color: var(--neon2);
+      font-size: .72rem;
+      font-weight: 1000;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .menu-head strong {
+      display: block;
+      margin-top: 4px;
+      color: #fff;
+      font-size: 1.05rem;
+      letter-spacing: -.015em;
     }
 
-    .menu-panel a::after { content: "→"; color: var(--neon2); opacity: .78; }
-    .menu-panel a.home-icon { color: #001016; background: linear-gradient(135deg, var(--neon), #ffffff); border-color: transparent; }
-    .menu-panel a.home-icon::after { color: #001016; }
+    .menu-section { display: grid; gap: 8px; }
+    .menu-label {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 1000;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 3px 3px 0;
+    }
 
-    .menu-panel a:hover,
-    .menu-panel a:focus-visible {
-      color: #001016;
-      background: var(--neon);
-      border-color: var(--neon);
+    .menu-card,
+    .menu-chip {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.055);
+      color: var(--soft);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .menu-card {
+      min-height: 62px;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 18px;
+    }
+
+    .menu-card::after,
+    .menu-chip::after { content: none !important; }
+
+    .menu-card:hover,
+    .menu-card:focus-visible,
+    .menu-chip:hover,
+    .menu-chip:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(0,231,255,.45);
+      background: rgba(0,231,255,.11);
       outline: none;
     }
-    .menu-panel a:hover::after,
-    .menu-panel a:focus-visible::after { color: #001016; }
+
+    .menu-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #001016;
+      background: linear-gradient(135deg, var(--neon), #ffffff);
+      font-size: 1.05rem;
+      box-shadow: 0 0 20px rgba(0,231,255,.18);
+    }
+
+    .menu-copy strong {
+      display: block;
+      color: #fff;
+      font-size: .95rem;
+      line-height: 1.15;
+    }
+    .menu-copy small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.25;
+    }
+    .menu-arrow {
+      color: var(--neon2);
+      font-weight: 1000;
+      opacity: .9;
+    }
+
+    .menu-card.primary {
+      background: linear-gradient(135deg, rgba(0,231,255,.18), rgba(255,255,255,.06));
+      border-color: rgba(0,231,255,.34);
+    }
+    .menu-card.fitness {
+      background: linear-gradient(135deg, rgba(117,255,184,.16), rgba(0,231,255,.08));
+      border-color: rgba(117,255,184,.28);
+    }
+    .menu-card.tip {
+      background: linear-gradient(135deg, rgba(255,231,138,.18), rgba(255,93,158,.08));
+      border-color: rgba(255,231,138,.3);
+    }
+    .menu-card.tip .menu-icon {
+      background: linear-gradient(135deg, var(--gold), #ffffff);
+    }
+
+    .menu-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .menu-chip {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 10px;
+      border-radius: 14px;
+      color: var(--soft);
+      font-size: .82rem;
+      font-weight: 950;
+      text-align: center;
+    }
 
     .hero { position: relative; padding: clamp(54px, 9vw, 112px) 0 44px; }
 
@@ -679,7 +788,7 @@
       .logo-mark { width: 38px; height: 38px; border-radius: 14px; }
       .menu-toggle { min-height: 40px; padding: 9px 12px; }
       .menu-text { display: none; }
-      .menu-panel { position: fixed; top: 62px; left: 11px; right: 11px; width: auto; transform-origin: top center; }
+      .menu-panel { position: fixed; top: 62px; left: 11px; right: 11px; width: auto; max-height: calc(100vh - 82px); transform-origin: top center; }
       .hero { padding-top: 38px; }
       h1 { font-size: clamp(2.75rem, 17vw, 5.2rem); }
       .hero-image-card { justify-self: center; max-width: 100%; height: auto; aspect-ratio: 592 / 736; }
@@ -720,16 +829,44 @@
         </button>
 
         <div class="menu-panel" id="site-menu">
-          <a class="home-icon" href="https://corneliusaurelius.com/" target="_blank" rel="noopener" aria-label="Go to corneliusaurelius.com">⌂ Home</a>
-          <a href="#story">Story</a>
-          <a href="#creator">Creator</a>
-          <a href="#ai">AI</a>
-          <a href="#engine">Engine</a>
-          <a href="#wasted-energy">Energy</a>
-          <a href="#forward">Move</a>
-          <a href="#polymath">Polymath</a>
-          <a href="#future">Future</a>
-          <a href="#support">Tip</a>
+          <div class="menu-head">
+            <span class="menu-kicker">Cornelius Aurelius</span>
+            <strong>Official navigation</strong>
+          </div>
+
+          <div class="menu-section">
+            <span class="menu-label">Main links</span>
+            <a class="menu-card primary" href="https://corneliusaurelius.com/" target="_blank" rel="noopener" aria-label="Go to the official Cornelius Aurelius homepage">
+              <span class="menu-icon" aria-hidden="true">⌂</span>
+              <span class="menu-copy"><strong>Home Page</strong><small>corneliusaurelius.com</small></span>
+              <span class="menu-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="menu-card fitness" href="https://cornelius-aurelius.github.io/Cornelius-Fitness-Equilibrium/" target="_blank" rel="noopener" aria-label="Open Cornelius Fitness Equilibrium">
+              <span class="menu-icon" aria-hidden="true">◆</span>
+              <span class="menu-copy"><strong>Cornelius Fitness Equilibrium</strong><small>Fitness content of Cornelius Aurelius</small></span>
+              <span class="menu-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="menu-card" href="https://www.instagram.com/cornelius_aurelius_/" target="_blank" rel="noopener" aria-label="Open Cornelius Aurelius Instagram">
+              <span class="menu-icon" aria-hidden="true">◎</span>
+              <span class="menu-copy"><strong>Instagram</strong><small>@cornelius_aurelius_</small></span>
+              <span class="menu-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="menu-card tip" href="https://buy.stripe.com/28E00jbRIfz8aLI7TGco000" target="_blank" rel="noopener" aria-label="Tip Cornelius">
+              <span class="menu-icon" aria-hidden="true">✦</span>
+              <span class="menu-copy"><strong>Tip Cornelius</strong><small>Support the work</small></span>
+              <span class="menu-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="menu-section">
+            <span class="menu-label">This page</span>
+            <div class="menu-mini-grid">
+              <a class="menu-chip" href="#story">Story</a>
+              <a class="menu-chip" href="#engine">Equilibrium Engine</a>
+              <a class="menu-chip" href="#projects">Projects</a>
+              <a class="menu-chip" href="#future">Future</a>
+            </div>
+          </div>
         </div>
       </nav>
     </div>
@@ -1067,7 +1204,7 @@
           <h2>If you want me to win, help me keep building things that help people win.</h2>
           <p>I am not trying to become rich by selling people useless rubbish. I am trying to build books, games, frameworks, stories and tools that make invisible problems easier to understand. You can look at my other work on <a href="https://corneliusaurelius.com/" target="_blank" rel="noopener">corneliusaurelius.com</a>. If the work helps you, inspires you, entertains you, or makes you want to see what I build next, you can tip below.</p>
           <div class="cta-row" style="justify-content:center;">
-            <a class="btn primary" href="https://buy.stripe.com/eVqcMY98h5wo6logZOejK00" target="_blank" rel="noopener">Tip Cornelius</a>
+            <a class="btn primary" href="https://buy.stripe.com/28E00jbRIfz8aLI7TGco000" target="_blank" rel="noopener">Tip Cornelius</a>
             <a class="btn" href="https://corneliusaurelius.com/" target="_blank" rel="noopener">Visit corneliusaurelius.com</a>
           </div>
         </div>
